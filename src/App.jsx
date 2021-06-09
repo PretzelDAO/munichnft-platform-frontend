@@ -9,6 +9,7 @@ import About from './Pages/About';
 import Imprint from './Pages/Imprint';
 import Home from './Pages/Home';
 
+import 'semantic-ui-css/semantic.min.css';
 
 class App extends React.Component {
   constructor(props) {

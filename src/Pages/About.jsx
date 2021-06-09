@@ -13,7 +13,7 @@ class About extends React.Component {
   RenderAbout() {
 
     return (
-      <div class="ui container">
+      <div>
         <p>About</p>
       </div>
     );

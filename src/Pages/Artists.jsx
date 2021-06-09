@@ -1,29 +1,29 @@
 import React from 'react';
 
-class Home extends React.Component {
+class Artists extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
 
     };
 
-    this.RenderHome = this.RenderHome.bind(this);
+    this.RenderArtists = this.RenderArtists.bind(this);
   }
 
-  RenderHome() {
+  RenderArtists() {
 
     return (
-      <div class="ui container">
-        <p>Home</p>
+      <div>
+        <p>Artists</p>
       </div>
     );
   }
 
   render() {
     return (
-      <this.RenderHome />
+      <this.RenderArtists />
     );
   }
 }
 
-export default Home;
+export default Artists;

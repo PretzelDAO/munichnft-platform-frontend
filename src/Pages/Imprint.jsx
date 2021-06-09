@@ -1,29 +1,29 @@
 import React from 'react';
 
-class Home extends React.Component {
+class Imprint extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
 
     };
 
-    this.RenderHome = this.RenderHome.bind(this);
+    this.RenderImprint = this.RenderImprint.bind(this);
   }
 
-  RenderHome() {
+  RenderImprint() {
 
     return (
-      <div class="ui container">
-        <p>Home</p>
+      <div>
+        <p>Imprint</p>
       </div>
     );
   }
 
   render() {
     return (
-      <this.RenderHome />
+      <this.RenderImprint />
     );
   }
 }
 
-export default Home;
+export default Imprint;
