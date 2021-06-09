@@ -1,0 +1,16 @@
+  
+{
+  "extends": "airbnb",
+  "parserOptions": {
+      "ecmaVersion": 2020
+  },
+  "rules": {
+      "prefer-destructuring": "off",
+      "max-len": "warn",
+      "no-await-in-loop": "warn",
+      "no-continue": "warn",
+      "arrow-parens": "off",
+      "class-methods-use-this": "off",
+      "jsx-props-no-spreading": "off"
+  }
+}
