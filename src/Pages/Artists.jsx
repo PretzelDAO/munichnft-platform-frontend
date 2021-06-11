@@ -1,4 +1,12 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Container } from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+
+  },
+}));
 
 class Artists extends React.Component {
   constructor(props) {
@@ -11,11 +19,12 @@ class Artists extends React.Component {
   }
 
   RenderArtists() {
+    const classes = useStyles();
 
     return (
-      <div>
-        <p>Artists</p>
-      </div>
+      <Container>
+        Artists
+      </Container>
     );
   }
 

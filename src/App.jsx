@@ -1,6 +1,9 @@
 import React from 'react';
 import history from './history';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { lightTheme } from './theme/muiTheme';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import CONFIG from './config';
 
@@ -9,7 +12,12 @@ import About from './Pages/About';
 import Imprint from './Pages/Imprint';
 import Home from './Pages/Home';
 
-import 'semantic-ui-css/semantic.min.css';
+import Navbar from './Navigation/Navbar';
+import NavbarDrawer from './Navigation/NavbarDrawer';
+
+const useStyles = makeStyles((theme) => ({
+  root: {},
+}));
 
 class App extends React.Component {
   constructor(props) {
@@ -22,40 +30,64 @@ class App extends React.Component {
   }
 
   RenderApp() {
+    const classes = useStyles();
+
+    const onMenuSelected = () => {
+      const { swipeSidebarOpen } = this.state;
+      this.setState({ swipeSidebarOpen: !swipeSidebarOpen });
+    };
+
+    const onSidebarEventTouch = open => event => {
+      if (
+        event
+        && event.type === 'keydown'
+        && (event.key === 'Tab' || event.key === 'Shift')
+      ) {
+        return;
+      }
+
+      this.setState({ swipeSidebarOpen: open });
+    };
 
     return (
-      <Router style={{ height: '100%' }} history={history}>
-        <Switch>
-          <Route
-            exact
-            path={'/'}
-            render={props => (
-              <Home {...props} />
-            )}
-          />
-          <Route
-            exact
-            path={'/artists'}
-            render={props => (
-              <Artists {...props} />
-            )}
-          />
-          <Route
-            exact
-            path={'/about'}
-            render={props => (
-              <About {...props} />
-            )}
-          />
-          <Route
-            exact
-            path={'/imprint'}
-            render={props => (
-              <Imprint {...props} />
-            )}
-          />
-        </Switch>
-      </Router>
+      <MuiThemeProvider theme={lightTheme}>
+        <CssBaseline>
+          <Navbar {...this.props} onMenuSelected={onMenuSelected} />
+          <NavbarDrawer {...this.props} swipeSidebarOpen={this.state.swipeSidebarOpen} onSidebarEventTouch={onSidebarEventTouch} onMenuSelected={onMenuSelected} />
+          <Router style={{ height: '100%' }} history={history}>
+            <Switch>
+              <Route
+                exact
+                path={'/'}
+                render={props => (
+                  <Home {...props} />
+                )}
+              />
+              <Route
+                exact
+                path={'/artists'}
+                render={props => (
+                  <Artists {...props} />
+                )}
+              />
+              <Route
+                exact
+                path={'/about'}
+                render={props => (
+                  <About {...props} />
+                )}
+              />
+              <Route
+                exact
+                path={'/imprint'}
+                render={props => (
+                  <Imprint {...props} />
+                )}
+              />
+            </Switch>
+          </Router>
+        </CssBaseline>
+      </MuiThemeProvider>
     );
   }
 
