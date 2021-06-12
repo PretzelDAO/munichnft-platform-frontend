@@ -16,6 +16,7 @@ import Navbar from './Navigation/Navbar';
 import NavbarDrawer from './Navigation/NavbarDrawer';
 import Listings from './Pages/Listings';
 import DetailView from './Pages/DetailView';
+import MintNft from './Pages/MintNft';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -98,6 +99,13 @@ class App extends React.Component {
                 path={'/view'}
                 render={props => (
                   <DetailView {...props} />
+                )}
+              />
+              <Route
+                exact
+                path={'/mint'}
+                render={props => (
+                  <MintNft {...props} />
                 )}
               />
             </Switch>
