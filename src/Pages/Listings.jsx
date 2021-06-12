@@ -90,7 +90,7 @@ class Listings extends React.Component {
           }
           console.log(nft);
           return (
-            <Grid item xs={2}>
+            <Grid item xs={12} md={2}>
               <Card key={nft.tokenId}>
                 <CardActionArea onClick={() => history.push(`/view?item=${nft.tokenId}`)}>
                   <CardMedia
