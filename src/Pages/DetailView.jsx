@@ -33,9 +33,10 @@ class DetailView extends React.Component {
     };
 
     this.RenderDetailView = this.RenderDetailView.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
-  async componentDidMount() {
+  async refresh() {
     const params = new URLSearchParams(window.location.search);
     const tokenIdQuery = params.get("item"); // is the string "Jonathan"
 
@@ -52,9 +53,6 @@ class DetailView extends React.Component {
       price = 0;
       this.setState({ sold: true });
     }
-    console.log(price, asset.orders[0])
-
-    console.log(asset.owner.address);
 
     this.setState({
       name: asset.name,
@@ -65,6 +63,10 @@ class DetailView extends React.Component {
       price,
       buyOrder: asset.orders[0],
     });
+  }
+
+  async componentDidMount() {
+    this.refresh();
   }
 
   RenderDetailView() {
@@ -85,12 +87,13 @@ class DetailView extends React.Component {
       const { orders, count } = await seaport.api.getOrders({
         asset_contract_address: tokenAddress,
         token_id: tokenId,
-        side: OrderSide.Sell
+        side: OrderSide.Sell,
       });
-      console.log(orders);
-      const accountAddress = account = web3.eth.accounts[0]; // The buyer's wallet address, also the taker
+
+      const accountAddress = '0xCf3ad96E746E91014083Bc3d68ECAE9bdc25Db2E'; //web3.rinkeby.accounts[0]; // The buyer's wallet address, also the taker
       const transactionHash = await seaport.fulfillOrder({ order: orders[0], accountAddress });
       console.log(transactionHash);
+      this.refresh();
     };
 
     return (

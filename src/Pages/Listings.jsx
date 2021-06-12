@@ -50,14 +50,20 @@ class Listings extends React.Component {
     assetsObjects.assets.forEach((asset) => {
       let price;
       let sold = false;
-      if (asset.orders && asset.orders[0]) {
-        price = new Bignumber(asset.orders[0].basePrice).toNumber() / 1e19;
+      console.log(asset);
+      if (asset.sellOrders) {
+        if (asset.sellOrders[0]) {
+          price = new Bignumber(asset.sellOrders[0].basePrice).toNumber() / 1e19;
+        } else {
+          price = 0;
+          sold = true;
+        }
       } else {
         price = 0;
         sold = true;
       }
       seaport.api.getAssets()
-      const buyOrderObj = asset.orders && asset.orders[0];
+      const buyOrderObj = asset.sellOrders && asset.sellOrders[0];
       nfts.push({
         name: asset.name,
         imageUrlOriginal: asset.imageUrlOriginal,
@@ -82,10 +88,11 @@ class Listings extends React.Component {
           if (nft.owner.user) {
             nftOwner = nft.owner.user.username ? nft.owner.user.username : 'Owner';
           }
+          console.log(nft);
           return (
             <Grid item xs={2}>
               <Card key={nft.tokenId}>
-                <CardActionArea onClick={() => history.push(`/view?item=${nft.tokenId}`) }>
+                <CardActionArea onClick={() => history.push(`/view?item=${nft.tokenId}`)}>
                   <CardMedia
                     component="img"
                     className={classes.media}
