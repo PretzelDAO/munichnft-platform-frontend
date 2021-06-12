@@ -46,10 +46,21 @@ class DetailView extends React.Component {
     const tokenIdQuery = params.get("item"); // is the string "Jonathan"
 
     const { tokenAddress, tokenId } = this.state;
-    const asset = await seaport.api.getAsset({
-      tokenAddress, // string
-      tokenId: tokenIdQuery, // string | number | null
-    });
+
+    let asset;
+    try {
+      asset = await seaport.api.getAsset({
+        tokenAddress, // string
+        tokenId: tokenIdQuery, // string | number | null
+      });
+    } catch (e) {
+      console.log('retrying');
+      setTimeout(() => {
+        refresh();
+      }, 1500);
+      return;
+    }
+
     console.log(asset);
     let price;
     if (asset.orders[0]) {

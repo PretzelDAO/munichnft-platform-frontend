@@ -37,16 +37,26 @@ class Listings extends React.Component {
       nfts: [],
     };
     this.RenderListings = this.RenderListings.bind(this);
+    this.getData = this.getData.bind(this);
   }
 
-  async componentDidMount() {
+  async getData() {
     const { nfts } = this.state;
     const tokenAddress = CONFIG.TOKEN_ADDRESS;
-    const assetsObjects = await seaport.api.getAssets({
-      asset_contract_address: tokenAddress, // string
-      offset: 0,
-      limit: 10, // string | number | null
-    });
+    let assetsObjects;
+    try {
+      assetsObjects = await seaport.api.getAssets({
+        asset_contract_address: tokenAddress, // string
+        offset: 0,
+        limit: 10, // string | number | null
+      });
+    } catch (e) {
+      console.log('retrying');
+      setTimeout(() => {
+        getData();
+      }, 1500);
+      return;
+    }
     assetsObjects.assets.forEach((asset) => {
       let price;
       let sold = false;
@@ -76,6 +86,10 @@ class Listings extends React.Component {
       });
     });
     this.setState({ nfts });
+  }
+
+  async componentDidMount() {
+    this.getData();
   }
 
   RenderListings() {
