@@ -44,8 +44,8 @@ class Listings extends React.Component {
     const tokenAddress = CONFIG.TOKEN_ADDRESS;
     const assetsObjects = await seaport.api.getAssets({
       asset_contract_address: tokenAddress, // string
-      offset: 4,
-      limit: 3, // string | number | null
+      offset: 0,
+      limit: 10, // string | number | null
     });
     assetsObjects.assets.forEach((asset) => {
       let price;

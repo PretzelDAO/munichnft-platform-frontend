@@ -53,7 +53,7 @@ class DetailView extends React.Component {
     console.log(asset);
     let price;
     if (asset.orders[0]) {
-      price = new Bignumber(asset.orders[0].basePrice).toNumber() / 1e19;
+      price = web3.utils.fromWei(`${new Bignumber(asset.orders[0].basePrice).toNumber()}`, 'ether');
     } else {
       price = 0;
       this.setState({ sold: true });
@@ -69,7 +69,10 @@ class DetailView extends React.Component {
       buyOrder: asset.orders[0],
     });
 
-    web3.eth.getBalance(address).then((balance) => {
+    const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
+    web3.eth.getBalance(account).then((balance) => {
+      console.log(web3.utils.fromWei(balance, 'ether'));
       this.setState({ balance: web3.utils.fromWei(balance, 'ether')});
     });
   }

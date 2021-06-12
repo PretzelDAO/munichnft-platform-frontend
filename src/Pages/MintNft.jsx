@@ -14,6 +14,13 @@ const client = create(new URL('https://ipfs.infura.io:5001'));
 import * as Web3 from 'web3'
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 
+import { OpenSeaPort, Network } from 'opensea-js'
+import { OrderSide } from 'opensea-js/lib/types'
+
+const seaport = new OpenSeaPort(Web3.givenProvider, {
+  networkName: Network.Rinkeby,
+});
+
 import CONFIG from '../config';
 import contractAbi from '../res/contract';
 
@@ -69,9 +76,12 @@ class MintNft extends React.Component {
       fileUploadResult: '',
       metaDataUploadResult: '',
       nftMintResult: '',
+      listingResult: '',
 
       nftName: '',
       nftDescription: '',
+
+      listingPrice: 0,
     };
 
     this.RenderMintNft = this.RenderMintNft.bind(this);
@@ -86,7 +96,27 @@ class MintNft extends React.Component {
       this.setState({ fileUploadResult: path });
     }
 
-    const { fileUploadResult, nftName, nftDescription, metaDataUploadResult, nftMintResult } = this.state;
+    const { fileUploadResult, nftName, nftDescription, metaDataUploadResult, nftMintResult, listingPrice, listingResult } = this.state;
+
+
+    const listNft = async () => {
+      const expirationTime = Math.round(Date.now() / 1000 + 60 * 60 * 24 * 10)
+      const contractAddres = CONFIG.TOKEN_ADDRESS;
+      const accounts = await web3.eth.getAccounts();
+      const account = accounts[0];
+
+      const listing = await seaport.createSellOrder({
+        asset: {
+          tokenId: 1, // TODO FIND OUT TODO!!!!,
+          tokenAddress: contractAddres,
+        },
+        accountAddress: account,
+        startAmount: listingPrice,
+        expirationTime,
+      });
+      console.log(listing);
+      this.setState({ listingResult: listing.hash });
+    };
 
     const mintNft = async () => {
       const contractAddres = CONFIG.TOKEN_ADDRESS;
@@ -195,10 +225,35 @@ class MintNft extends React.Component {
         ) : (
           <Container>
             <Typography variant="body2">
-              Minted: {nftMintResult}
+              Listed: {nftMintResult}
             </Typography>
             <Button onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="massive">
               Next
+            </Button>
+          </Container>
+        )}
+      </>
+    );
+
+    const step4 = (
+      <>
+        {listingResult === '' ? (
+          <Container>
+            <Typography variant="h5">
+              List your NFT
+            </Typography>
+            <TextField variant="outlined" placeholder="Name" value={listingPrice} onChange={(event) => this.setState({ listingPrice: event.target.value })} />
+            <Button variant="outlined" onClick={() => listNft()}>
+              List!
+            </Button>
+          </Container>
+        ) : (
+          <Container>
+            <Typography variant="body2">
+              Listed: {listingResult}
+            </Typography>
+            <Button onClick={handleReset} variant="outlined" className={classes.nextButtonStyle} size="massive">
+              Done - Mint another!
             </Button>
           </Container>
         )}
@@ -228,6 +283,11 @@ class MintNft extends React.Component {
           {activeStep === 2 && (
             <>
               {step3}
+            </>
+          )}
+          {activeStep === 3 && (
+            <>
+              {step4}
             </>
           )}
         </div>
