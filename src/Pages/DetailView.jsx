@@ -6,9 +6,9 @@ import { Button, CircularProgress, Container, Grid, TextField, Typography } from
 
 import * as Web3 from 'web3'
 import { OpenSeaPort, Network } from 'opensea-js'
-const provider = new Web3.providers.HttpProvider('https://rinkeby.infura.io')
+import { OrderSide } from 'opensea-js/lib/types'
 
-const seaport = new OpenSeaPort(provider, {
+const seaport = new OpenSeaPort(window.web3.currentProvider, {
   networkName: Network.Rinkeby,
 })
 
@@ -22,11 +22,12 @@ class DetailView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      tokenAddress: '0x7b0fd0d4022382ff2f2ddae8182648daaac3e2e5',
+      tokenId: '5',
       name: '',
       artist: '',
       price: '',
       description: '',
-      tokenId: '',
       imageUrlOriginal: '',
       sold: false,
     };
@@ -35,8 +36,7 @@ class DetailView extends React.Component {
   }
 
   async componentDidMount() {
-    const tokenAddress = '0x7b0fd0d4022382ff2f2ddae8182648daaac3e2e5';
-    const tokenId = '3';
+    const { tokenAddress, tokenId } = this.state;
     const asset = await seaport.api.getAsset({
       tokenAddress, // string
       tokenId, // string | number | null
@@ -44,7 +44,7 @@ class DetailView extends React.Component {
     console.log(asset);
     let price;
     if (asset.orders[0]) {
-      price = Number(new Bignumber(asset.orders[0].basePrice).toNumber() / 10).toFixed(8);
+      price = new Bignumber(asset.orders[0].basePrice).toNumber() / 1e19;
     } else {
       price = 0;
       this.setState({ sold: true });
@@ -60,12 +60,13 @@ class DetailView extends React.Component {
       description: asset.description,
       artist: asset.owner.address,
       price,
+      buyOrder: asset.orders[0],
     });
   }
 
   RenderDetailView() {
     const classes = useStyles();
-    const { name, artist, price, description, tokenId, imageUrlOriginal, sold } = this.state;
+    const { name, artist, price, description, tokenId, imageUrlOriginal, sold, buyOrder } = this.state;
 
 
     if (name === '') {
@@ -76,13 +77,26 @@ class DetailView extends React.Component {
       );
     }
 
+    const buyNft = async () => {
+      const { tokenAddress, tokenId } = this.state;
+      const { orders, count } = await seaport.api.getOrders({
+        asset_contract_address: tokenAddress,
+        token_id: tokenId,
+        side: OrderSide.Sell
+      });
+      console.log(orders);
+      const accountAddress = account = web3.eth.accounts[0]; // The buyer's wallet address, also the taker
+      const transactionHash = await seaport.fulfillOrder({ order: orders[0], accountAddress });
+      console.log(transactionHash);
+    };
+
     return (
       <Container className={classes.viewContainer}>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <img src={imageUrlOriginal} alt="" />
+          <Grid item xs={12} md={4}>
+            <img src={imageUrlOriginal} alt="" style={{ maxWidth: '300px', maxHeight: '600px' }}/>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12} md={8}>
             <Typography variant="h2">
               {name} #{tokenId}
             </Typography>
@@ -103,7 +117,7 @@ class DetailView extends React.Component {
                 <Typography variant="body2">
                   ~ 403€
                 </Typography>
-                <Button variant="outlined">
+                <Button variant="outlined" onClick={() => buyNft()}>
                   Buy
                 </Button>
               </>
