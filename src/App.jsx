@@ -14,6 +14,7 @@ import Home from './Pages/Home';
 
 import Navbar from './Navigation/Navbar';
 import NavbarDrawer from './Navigation/NavbarDrawer';
+import Listings from './Pages/Listings';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -82,6 +83,13 @@ class App extends React.Component {
                 path={'/imprint'}
                 render={props => (
                   <Imprint {...props} />
+                )}
+              />
+              <Route
+                exact
+                path={'/listings'}
+                render={props => (
+                  <Listings {...props} />
                 )}
               />
             </Switch>
