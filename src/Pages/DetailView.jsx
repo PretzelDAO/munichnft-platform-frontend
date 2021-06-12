@@ -10,7 +10,7 @@ import { OrderSide } from 'opensea-js/lib/types'
 
 const seaport = new OpenSeaPort(window.web3.currentProvider, {
   networkName: Network.Rinkeby,
-})
+});
 
 const useStyles = makeStyles(theme => ({
   viewContainer: {
@@ -23,7 +23,6 @@ class DetailView extends React.Component {
     super(props);
     this.state = {
       tokenAddress: '0x7b0fd0d4022382ff2f2ddae8182648daaac3e2e5',
-      tokenId: '5',
       name: '',
       artist: '',
       price: '',
@@ -36,10 +35,13 @@ class DetailView extends React.Component {
   }
 
   async componentDidMount() {
+    const params = new URLSearchParams(window.location.search);
+    const tokenIdQuery = params.get("item"); // is the string "Jonathan"
+
     const { tokenAddress, tokenId } = this.state;
     const asset = await seaport.api.getAsset({
       tokenAddress, // string
-      tokenId, // string | number | null
+      tokenId: tokenIdQuery, // string | number | null
     });
     console.log(asset);
     let price;
@@ -56,7 +58,7 @@ class DetailView extends React.Component {
     this.setState({
       name: asset.name,
       imageUrlOriginal: asset.imageUrlOriginal,
-      tokenId,
+      tokenId: tokenIdQuery,
       description: asset.description,
       artist: asset.owner.address,
       price,
