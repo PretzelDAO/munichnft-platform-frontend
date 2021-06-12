@@ -381,6 +381,7 @@ class Listings extends React.Component {
                 src={nft.imageUrlOriginal}
                 title={nft.name}
                 autoPlay
+                loop
               />
               <CardContent>
                 <Typography>{nft.name}</Typography>
