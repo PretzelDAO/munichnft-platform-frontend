@@ -1,6 +1,7 @@
 import React from 'react';
+import Bignumber from 'bignumber.js';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, CircularProgress, Container, Grid, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Container, Grid, TextField, Typography } from '@material-ui/core';
 
 
 import * as Web3 from 'web3'
@@ -25,6 +26,9 @@ class DetailView extends React.Component {
       artist: '',
       price: '',
       description: '',
+      tokenId: '',
+      imageUrlOriginal: '',
+      sold: false,
     };
 
     this.RenderDetailView = this.RenderDetailView.bind(this);
@@ -32,48 +36,78 @@ class DetailView extends React.Component {
 
   async componentDidMount() {
     const tokenAddress = '0x7b0fd0d4022382ff2f2ddae8182648daaac3e2e5';
-    const tokenId = '2';
+    const tokenId = '3';
     const asset = await seaport.api.getAsset({
       tokenAddress, // string
       tokenId, // string | number | null
     });
     console.log(asset);
-    console.log(asset.orders[0].basePrice);
+    let price;
+    if (asset.orders[0]) {
+      price = Number(new Bignumber(asset.orders[0].basePrice).toNumber() / 10).toFixed(8);
+    } else {
+      price = 0;
+      this.setState({ sold: true });
+    }
+    console.log(price, asset.orders[0])
+
+    console.log(asset.owner.address);
+
+    this.setState({
+      name: asset.name,
+      imageUrlOriginal: asset.imageUrlOriginal,
+      tokenId,
+      description: asset.description,
+      artist: asset.owner.address,
+      price,
+    });
   }
 
   RenderDetailView() {
     const classes = useStyles();
-    const { name, arist, price, description } = this.props;
+    const { name, artist, price, description, tokenId, imageUrlOriginal, sold } = this.state;
 
 
     if (name === '') {
-      <Container>
-        <CircularProgress />
-      </Container>
+      return (
+        <Container>
+          <CircularProgress />
+        </Container>
+      );
     }
 
     return (
       <Container className={classes.viewContainer}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <img src="https://ipfs.io/ipfs/QmfKEmwC9timUZWemvrKbGw3scEzPWGcGGgYWnPRxt1sqb" />
+            <img src={imageUrlOriginal} alt="" />
           </Grid>
           <Grid item xs={8}>
             <Typography variant="h2">
-              Iron Man
+              {name} #{tokenId}
             </Typography>
             <Typography variant="caption">
-              by @Christian
+              by @{artist}
             </Typography>
-            <Typography variant="h6">
-              0.005 ETH
-            </Typography>
-            <Button variant="outlined">
-              Buy
-            </Button>
             <Typography variant="body2">
-              Iron Man (amerikanische Aussprache: ['aɪɘrnˌmæn], britische Aussprache: ['aɪɘnˌmæn]) ist ein US-amerikanischer Action- und Science-Fiction-Spielfilm aus dem Jahr 2008, der als Comicverfilmung auf der Superhelden-Comicfigur Iron Man des Verlages Marvel basiert. Regie führte Jon Favreau, die Hauptrolle spielte Robert Downey Jr. In den USA war Paramount Pictures für den Verleih zuständig, in Deutschland Concorde. Der offizielle Filmstart erfolgte in den USA am 2. Mai 2008, in Deutschland bereits am 1. Mai.
+              {description}
             </Typography>
+            {sold ? (
+              <Typography variant="h5">
+                SOLD
+              </Typography>
+            ) : (
+              <>
+                <TextField variant="outlined" value={`${price} ETH`} />
+                <TextField variant="outlined" value={`Your balance ${price} ETH`} />
+                <Typography variant="body2">
+                  ~ 403€
+                </Typography>
+                <Button variant="outlined">
+                  Buy
+                </Button>
+              </>
+            )}
           </Grid>
         </Grid>
       </Container>
