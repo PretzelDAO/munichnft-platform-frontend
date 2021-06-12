@@ -10,11 +10,11 @@ import { OrderSide } from 'opensea-js/lib/types'
 import CONFIG from '../config';
 import TxDialog from './TxDialog';
 
-const seaport = new OpenSeaPort(window.web3.currentProvider, {
+const seaport = new OpenSeaPort(Web3.givenProvider, {
   networkName: Network.Rinkeby,
 });
 
-web3 = new Web3(window.web3.currentProvider);
+const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 
 const useStyles = makeStyles(theme => ({
   viewContainer: {
@@ -87,11 +87,8 @@ class DetailView extends React.Component {
     }
 
     const buyNft = async () => {
-      if (window.ethereum) {
-        await ethereum.enable();
-      }
-      const account = web3.currentProvider.selectedAddress;
-      console.log(account);
+      const accounts = await web3.eth.getAccounts();
+      const account = accounts[0];
       const { tokenAddress, tokenId } = this.state;
       const { orders, count } = await seaport.api.getOrders({
         asset_contract_address: tokenAddress,
@@ -99,9 +96,9 @@ class DetailView extends React.Component {
         side: OrderSide.Sell,
       });
 
-      const accountAddress = web3.eth.currentProvider; //web3.rinkeby.accounts[0]; // The buyer's wallet address, also the taker
       this.setState({ dialogOpen: true });
-      const transactionHash = await seaport.fulfillOrder({ order: orders[0], accountAddress });
+
+      const transactionHash = await seaport.fulfillOrder({ order: orders[0], accountAddress: account });
       this.setState({ dialogOpen: false });
       console.log(transactionHash);
       this.refresh();
