@@ -34,6 +34,7 @@ class DetailView extends React.Component {
       imageUrlOriginal: '',
       sold: false,
       dialogOpen: false,
+      balance: 0,
     };
 
     this.RenderDetailView = this.RenderDetailView.bind(this);
@@ -67,6 +68,10 @@ class DetailView extends React.Component {
       price,
       buyOrder: asset.orders[0],
     });
+
+    web3.eth.getBalance(address).then((balance) => {
+      this.setState({ balance: web3.utils.fromWei(balance, 'ether')});
+    });
   }
 
   async componentDidMount() {
@@ -75,7 +80,10 @@ class DetailView extends React.Component {
 
   RenderDetailView() {
     const classes = useStyles();
-    const { name, artist, price, description, tokenId, imageUrlOriginal, sold, buyOrder, dialogOpen } = this.state;
+    const { 
+      name, artist, price, description, tokenId,imageUrlOriginal,
+      sold, buyOrder, dialogOpen,balance
+    } = this.state;
 
 
     if (name === '') {
@@ -130,6 +138,9 @@ class DetailView extends React.Component {
                 <TextField variant="outlined" value={`Your balance ${price} ETH`} />
                 <Typography variant="body2">
                   ~ 403€
+                </Typography>
+                <Typography variant="h6">
+                  Your Balance: {balance} ETH
                 </Typography>
                 <Button variant="outlined" onClick={() => buyNft()}>
                   Buy
