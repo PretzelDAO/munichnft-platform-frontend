@@ -15,6 +15,7 @@ import Home from './Pages/Home';
 import Navbar from './Navigation/Navbar';
 import NavbarDrawer from './Navigation/NavbarDrawer';
 import Listings from './Pages/Listings';
+import DetailView from './Pages/DetailView';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -90,6 +91,13 @@ class App extends React.Component {
                 path={'/listings'}
                 render={props => (
                   <Listings {...props} />
+                )}
+              />
+              <Route
+                exact
+                path={'/view'}
+                render={props => (
+                  <DetailView {...props} />
                 )}
               />
             </Switch>

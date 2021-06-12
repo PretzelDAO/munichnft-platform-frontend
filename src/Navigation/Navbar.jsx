@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { MetaMaskButton } from 'rimble-ui';
 import {
   AppBar,
   Toolbar,
@@ -54,13 +55,19 @@ class Navbar extends React.Component {
             </IconButton>
             <Typography variant="h6" color="secondary">
               MunichNFT
-          </Typography>
+            </Typography>
+            <MetaMaskButton.Outline size="medium">
+              Connect
+            </MetaMaskButton.Outline>
           </Toolbar>
         </Hidden>
         <Hidden smDown>
           <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
             <Tab label="Coming Soon" />
             <Tab label="in Munich and beyond" />
+            <MetaMaskButton.Outline size="medium">
+              Connect
+            </MetaMaskButton.Outline>
           </Tabs>
         </Hidden>
       </AppBar>
