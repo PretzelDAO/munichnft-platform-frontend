@@ -19,6 +19,7 @@ import * as Web3 from 'web3'
 import Bignumber from 'bignumber.js';
 import { OpenSeaPort, Network } from 'opensea-js'
 import { OrderSide } from 'opensea-js/lib/types'
+import CONFIG from '../config';
 
 const seaport = new OpenSeaPort(window.web3.currentProvider, {
   networkName: Network.Rinkeby,
@@ -40,7 +41,7 @@ class Listings extends React.Component {
 
   async componentDidMount() {
     const { nfts } = this.state;
-    const tokenAddress = '0x7b0fd0d4022382ff2f2ddae8182648daaac3e2e5';
+    const tokenAddress = CONFIG.TOKEN_ADDRESS;
     const assetsObjects = await seaport.api.getAssets({
       asset_contract_address: tokenAddress, // string
       offset: 4,
@@ -76,7 +77,7 @@ class Listings extends React.Component {
     const { history } = this.props;
     let nftOwner = '';
     return (
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignContent="center" justify="center" alignItems="center">
         {this.state.nfts.map((nft) => {
           if (nft.owner.user) {
             nftOwner = nft.owner.user.username ? nft.owner.user.username : 'Owner';
@@ -90,7 +91,6 @@ class Listings extends React.Component {
                     className={classes.media}
                     image={nft.imageUrlOriginal}
                     title={nft.name}
-                    style={{ maxWidth: '300px', maxHeight: '500px' }}
                   />
                   <CardContent>
                     <Typography>{nft.name}</Typography>

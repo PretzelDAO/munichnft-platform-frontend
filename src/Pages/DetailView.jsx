@@ -7,6 +7,7 @@ import { Button, CircularProgress, Container, Grid, TextField, Typography } from
 import * as Web3 from 'web3'
 import { OpenSeaPort, Network } from 'opensea-js'
 import { OrderSide } from 'opensea-js/lib/types'
+import CONFIG from '../config';
 
 const seaport = new OpenSeaPort(window.web3.currentProvider, {
   networkName: Network.Rinkeby,
@@ -22,7 +23,7 @@ class DetailView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tokenAddress: '0x7b0fd0d4022382ff2f2ddae8182648daaac3e2e5',
+      tokenAddress: CONFIG.TOKEN_ADDRESS,
       name: '',
       artist: '',
       price: '',
