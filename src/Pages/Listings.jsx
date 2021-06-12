@@ -1,9 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Box, 
+  Box,
   Container,
   Card,
+  CardHeader,
   CardActionArea,
   CardMedia,
   CardContent,
@@ -375,22 +376,30 @@ class Listings extends React.Component {
           <Card key={nft.tokenId}>
             <CardActionArea>
               <CardMedia
+                component="video"
                 className={classes.media}
-                image={nft.imageUrlOriginal}
+                src={nft.imageUrlOriginal}
                 title={nft.name}
+                autoPlay
               />
-              <video src={nft.imageUrlOriginal}></video>
               <CardContent>
                 <Typography>{nft.name}</Typography>
                 <Typography>{nft.description}</Typography>
                 <Typography>
-                  {nft.owner.user == null ? nft.owner.user : "Owner"}
+                  {nft.owner.user.username ? nft.owner.user.username : "Owner"}
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button>
-                  <Typography>Buy</Typography>
-                </Button>
+                {nft.price ? (
+                  <Box>
+                    <Typography>{nft.price}</Typography>
+                    <Button>
+                      <Typography>Buy</Typography>
+                    </Button>
+                  </Box>
+                ) : (
+                  <Typography>Not for sale</Typography>
+                )}
               </CardActions>
             </CardActionArea>
           </Card>
