@@ -82,6 +82,9 @@ class App extends React.Component {
       if (!owner) {
         owner = asset.owner.address;
       }
+      if (owner === 'BurnAddress') {
+        return;
+      }
       const buyOrderObj = asset.sell_orders && asset.sell_orders[0];
       nfts.push({
         name: asset.name,

@@ -38,7 +38,7 @@ class Listings extends React.Component {
           </Typography>
           <Divider variant="fullWidth" />
         </Box>
-        <Grid container spacing={6} alignContent="center" justify="center" alignItems="center">
+        <Grid container spacing={6} alignContent="center" justify="flex-start" alignItems="flex-start">
           {this.props.nfts.map((nft) => {
             if (nft.owner.user) {
               nftOwner = nft.owner.user.username ? nft.owner.user.username : 'Owner';
