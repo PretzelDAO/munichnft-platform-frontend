@@ -1,7 +1,7 @@
 import React from 'react';
 import Bignumber from 'bignumber.js';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, CircularProgress, Container, Grid, TextField, Typography, Dialog, Paper } from '@material-ui/core';
+import { Button, CircularProgress, Container, Grid, TextField, Typography, Dialog, Paper, Fab } from '@material-ui/core';
 
 
 import * as Web3 from 'web3'
@@ -16,6 +16,8 @@ if (Web3.givenProvider) {
     networkName: CONFIG.NETWORK,
   });
 }
+
+import ethIcon from '../res/ethereum.png';
 
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 
@@ -47,8 +49,6 @@ class DetailView extends React.Component {
   async refresh() {
     const params = new URLSearchParams(window.location.search);
     const tokenIdQuery = params.get("item"); // is the string "Jonathan"
-
-    const { owner } = this.state;
     const { nfts } = this.props;
 
     console.log(nfts);
@@ -63,6 +63,9 @@ class DetailView extends React.Component {
       return;
     }
     console.log(asset);
+    if (this.state.name === asset.name) {
+      return;
+    }
 
     this.setState({
       name: asset.name,
@@ -86,7 +89,7 @@ class DetailView extends React.Component {
     });
   }
 
-  async componentDidMount() {
+  async componentDidUpdate() {
     this.refresh();
   }
 
@@ -147,7 +150,12 @@ class DetailView extends React.Component {
                 </Typography>
               ) : (
                 <>
-                  <TextField variant="outlined" value={`${price} ETH`} disabled style={{ marginBottom: '4px', marginTop: '4px' }} />
+                  <Fab variant="extended" style={{ padding: '16px', margin: '8px', color: 'black', marginLeft: '0px' }} color="secondary" disabled>
+                    <img src={ethIcon} style={{ height: '24px' }} />
+                    <div style={{ marginLeft: '4px' }} />
+                    {price} ETH
+                  </Fab>
+
                   {/*<Typography variant="body2">
                   ~ 403€
                   </Typography>*/}

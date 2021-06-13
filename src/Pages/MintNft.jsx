@@ -269,7 +269,7 @@ class MintNft extends React.Component {
             <Typography variant="h5">
               List your NFT
             </Typography>
-            <TextField variant="outlined" placeholder="Name" value={listingPrice} onChange={(event) => this.setState({ listingPrice: event.target.value })} />
+            <TextField variant="outlined" placeholder="Price" value={listingPrice} onChange={(event) => this.setState({ listingPrice: event.target.value })} />
             <Button color="primary" size="large" variant="outlined" onClick={() => listNft()}>
               List!
             </Button>
