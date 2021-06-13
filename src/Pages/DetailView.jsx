@@ -76,6 +76,7 @@ class DetailView extends React.Component {
       creator: asset.creator,
       price: asset.price,
       buyOrder: asset.buyOrder,
+      sold: asset.sold,
     });
 
 
@@ -150,7 +151,7 @@ class DetailView extends React.Component {
                 {description}
               </Typography>
               {sold ? (
-                <Typography variant="h5">
+                <Typography variant="h5" style={{ marginTop: '32px' }}>
                   Sold to @{owner}
                 </Typography>
               ) : (
