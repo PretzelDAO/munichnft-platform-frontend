@@ -67,7 +67,7 @@ class Navbar extends React.Component {
               <Tab label="Home" onClick={() => history.push('/')}/>
               <Tab label="About" onClick={() => history.push('/about')}/>
               <Tab label="Artists" onClick={() => history.push('/artists')}/>
-              <Tab label="Mint" onClick={() => history.push('/mint')}/>
+              {/* <Tab label="Mint" onClick={() => history.push('/mint')}/> */}
             </div>
           </Tabs>
         </Hidden>
