@@ -11,94 +11,19 @@ import {
   CardContent,
   CardActions,
   Typography,
-  Button,
-  Link,
   Grid,
   Divider,
 } from "@material-ui/core";
-
-import * as Web3 from 'web3'
-import Bignumber from 'bignumber.js';
-import { OpenSeaPort, Network } from 'opensea-js'
-import { OrderSide } from 'opensea-js/lib/types'
-
-import CONFIG from '../config';
-const seaport = new OpenSeaPort(Web3.givenProvider, {
-  networkName: CONFIG.NETWORK,
-});
 
 const useStyles = makeStyles((theme) => ({
   root: {},
 }));
 
-const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
-
 
 class Listings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      nfts: [],
-    };
     this.RenderListings = this.RenderListings.bind(this);
-    this.getData = this.getData.bind(this);
-  }
-
-  async getData() {
-    const { nfts } = this.state;
-    const tokenAddress = CONFIG.TOKEN_ADDRESS;
-    let assetsObjects;
-    try {
-      assetsObjects = await seaport.api.getAssets({
-        asset_contract_address: tokenAddress, // string
-        offset: 0,
-        limit: 100, // string | number | null
-      });
-    } catch (e) {
-      console.log('retrying');
-      setTimeout(() => {
-        getData();
-      }, 1500);
-      return;
-    }
-    console.log(assetsObjects);
-    assetsObjects.assets.reverse().forEach((asset) => {
-      if (!asset.imageUrlOriginal) {
-        return;
-      }
-      let price;
-      let sold = false;
-      console.log(asset);
-      if (asset.sellOrders) {
-        if (asset.sellOrders[0]) {
-          price = web3.utils.fromWei(`${new Bignumber(asset.sellOrders[0].basePrice).toNumber()}`, 'ether');
-        } else {
-          price = 0;
-          sold = true;
-        }
-      } else {
-        price = 0;
-        sold = true;
-      }
-      seaport.api.getAssets()
-      const buyOrderObj = asset.sellOrders && asset.sellOrders[0];
-      nfts.push({
-        name: asset.name,
-        imageUrlOriginal: asset.imageUrlOriginal,
-        tokenId: asset.tokenId,
-        description: asset.description,
-        owner: asset.owner.address,
-        ownerProfilePic: asset.owner.profile_img_url,
-        price,
-        buyOrder: buyOrderObj,
-        sold,
-      });
-    });
-    this.setState({ nfts });
-  }
-
-  async componentDidMount() {
-    this.getData();
   }
 
   RenderListings() {
@@ -114,7 +39,7 @@ class Listings extends React.Component {
           <Divider variant="fullWidth" />
         </Box>
         <Grid container spacing={6} alignContent="center" justify="center" alignItems="center">
-          {this.state.nfts.map((nft) => {
+          {this.props.nfts.map((nft) => {
             if (nft.owner.user) {
               nftOwner = nft.owner.user.username ? nft.owner.user.username : 'Owner';
             }

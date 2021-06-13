@@ -20,9 +20,12 @@ import { OrderSide } from 'opensea-js/lib/types';
 import contractAbi from '../res/contract';
 
 import CONFIG from '../config';
-const seaport = new OpenSeaPort(Web3.givenProvider, {
-  networkName: CONFIG.NETWORK,
-});
+let seaport;
+  if (Web3.givenProvider) {
+  seaport = new OpenSeaPort(Web3.givenProvider, {
+    networkName: CONFIG.NETWORK,
+  });
+}
 
 const IpfsUploader = (props) => {
   // specify upload params and url for your files

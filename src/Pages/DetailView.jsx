@@ -10,9 +10,12 @@ import { OrderSide } from 'opensea-js/lib/types'
 import TxDialog from './TxDialog';
 
 import CONFIG from '../config';
-const seaport = new OpenSeaPort(Web3.givenProvider, {
-  networkName: CONFIG.NETWORK,
-});
+let seaport;
+if (Web3.givenProvider) {
+  seaport = new OpenSeaPort(Web3.givenProvider, {
+    networkName: CONFIG.NETWORK,
+  });
+}
 
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 
@@ -45,43 +48,34 @@ class DetailView extends React.Component {
     const params = new URLSearchParams(window.location.search);
     const tokenIdQuery = params.get("item"); // is the string "Jonathan"
 
-    const { tokenAddress, tokenId } = this.state;
+    const { owner } = this.state;
+    const { nfts } = this.props;
 
+    console.log(nfts);
     let asset;
-    try {
-      asset = await seaport.api.getAsset({
-        tokenAddress, // string
-        tokenId: tokenIdQuery, // string | number | null
-      });
-    } catch (e) {
-      console.log('retrying');
-      setTimeout(() => {
-        refresh();
-      }, 1500);
+    for (let i = 0; i < nfts.length; i += 1) {
+      console.log(nfts[i].tokenId, tokenIdQuery);
+      if (nfts[i].tokenId === tokenIdQuery) {
+        asset = nfts[i];
+      }
+    }
+    if (!asset) {
       return;
     }
-
     console.log(asset);
-    let price;
-    if (asset.orders[0]) {
-      price = web3.utils.fromWei(`${new Bignumber(asset.orders[0].basePrice).toNumber()}`, 'ether');
-    } else {
-      price = 0;
-      this.setState({ sold: true });
-    }
 
     this.setState({
       name: asset.name,
       imageUrlOriginal: asset.imageUrlOriginal,
       tokenId: tokenIdQuery,
       description: asset.description,
-      artist: asset.owner.address,
-      price,
-      buyOrder: asset.orders[0],
+      owner: asset.owner,
+      price: asset.price,
+      buyOrder: asset.buyOrder,
     });
 
 
-    const accounts = await web3.eth.requestAccounts();
+    const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
     if (!account) {
       return;
@@ -99,8 +93,8 @@ class DetailView extends React.Component {
   RenderDetailView() {
     const classes = useStyles();
     const {
-      name, artist, price, description, tokenId, imageUrlOriginal,
-      sold, buyOrder, dialogOpen, balance
+      name, price, description, tokenId, imageUrlOriginal,
+      sold, dialogOpen, balance, owner,
     } = this.state;
 
 
@@ -142,7 +136,7 @@ class DetailView extends React.Component {
                 {name} #{tokenId}
               </Typography>
               <Typography variant="caption" style={{ marginBottom: '4px', marginTop: '4px' }} >
-                by @{artist}
+                by @{owner}
               </Typography>
               <Typography variant="body2" style={{ marginBottom: '4px', marginTop: '4px' }} >
                 {description}
@@ -157,25 +151,34 @@ class DetailView extends React.Component {
                   {/*<Typography variant="body2">
                   ~ 403€
                   </Typography>*/}
-                  <Typography variant="h6" style={{ marginBottom: '4px', marginTop: '4px' }} >
-                    Your available ETH {balance} ETH
-                </Typography>
-                  <Button variant="outlined" onClick={() => buyNft()} style={{ marginBottom: '4px', marginTop: '4px' }} >
-                    Buy for {price} ETH
-                </Button>
+                  {balance !== 0 && (
+                    <Typography variant="h6" style={{ marginBottom: '4px', marginTop: '4px' }} >
+                      Your available ETH {balance} ETH
+                    </Typography>
+                  )}
+                  <div />
+                  {Web3.givenProvider ? (
+                    <Button variant="outlined" onClick={() => buyNft()} style={{ marginBottom: '4px', marginTop: '4px' }} >
+                      Buy for {price} ETH
+                    </Button>
+                  ) : (
+                    <Button variant="outlined" disabled style={{ marginBottom: '4px', marginTop: '4px' }} >
+                      Please install Metamask to buy this Artwork
+                    </Button>
+                  )}
                 </>
               )}
             </Grid>
           </Grid>
         </Paper>
         <Dialog
-            open={dialogOpen}
-            onClose={() => this.setState({ dialogOpen: false })}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <TxDialog />
-          </Dialog>
+          open={dialogOpen}
+          onClose={() => this.setState({ dialogOpen: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <TxDialog />
+        </Dialog>
       </Container>
     );
   }
