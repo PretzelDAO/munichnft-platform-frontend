@@ -69,7 +69,7 @@ class Listings extends React.Component {
       console.log(asset);
       if (asset.sellOrders) {
         if (asset.sellOrders[0]) {
-          price = new Bignumber(asset.sellOrders[0].basePrice).toNumber() / 1e19;
+          price = web3.utils.fromWei(new Bignumber(asset.sellOrders[0].basePrice).toNumber(), 'ether');
         } else {
           price = 0;
           sold = true;
