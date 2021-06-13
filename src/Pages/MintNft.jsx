@@ -12,7 +12,6 @@ import Dropzone from 'react-dropzone-uploader'
 const client = create(new URL('https://ipfs.infura.io:5001'));
 
 import * as Web3 from 'web3'
-const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 
 import { OpenSeaPort, Network } from 'opensea-js';
 import { OrderSide } from 'opensea-js/lib/types';
@@ -20,8 +19,10 @@ import { OrderSide } from 'opensea-js/lib/types';
 import contractAbi from '../res/contract';
 
 import CONFIG from '../config';
+let web3;
 let seaport;
-  if (Web3.givenProvider) {
+if (Web3.givenProvider) {
+  web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
   seaport = new OpenSeaPort(Web3.givenProvider, {
     networkName: CONFIG.NETWORK,
   });

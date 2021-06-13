@@ -13,15 +13,15 @@ import ModalImage from 'react-modal-image';
 
 import CONFIG from '../config';
 let seaport;
+let web3;
 if (Web3.givenProvider) {
+  web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
   seaport = new OpenSeaPort(Web3.givenProvider, {
     networkName: CONFIG.NETWORK,
   });
 }
 
 import ethIcon from '../res/ethereum.png';
-
-const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 
 const useStyles = makeStyles(theme => ({
   viewContainer: {
