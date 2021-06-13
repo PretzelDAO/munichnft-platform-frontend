@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+  Avatar,
   Box,
   Container,
   Card,
@@ -79,7 +80,8 @@ class Listings extends React.Component {
         imageUrlOriginal: asset.imageUrlOriginal,
         tokenId: asset.tokenId,
         description: asset.description,
-        owner: asset.owner,
+        owner: asset.owner.address,
+        ownerProfilePic: asset.owner.profile_img_url,
         price,
         buyOrder: buyOrderObj,
         sold,
@@ -97,14 +99,14 @@ class Listings extends React.Component {
     const { history } = this.props;
     let nftOwner = '';
     return (
-      <Grid container spacing={2} alignContent="center" justify="center" alignItems="center">
+      <Grid container spacing={10} alignContent="center" justify="center" alignItems="center">
         {this.state.nfts.map((nft) => {
           if (nft.owner.user) {
             nftOwner = nft.owner.user.username ? nft.owner.user.username : 'Owner';
           }
           console.log(nft);
           return (
-            <Grid item xs={12} md={4} lg={2}>
+            <Grid item xs={12} md={4} lg={3}>
               <Card key={nft.tokenId}>
                 <CardActionArea onClick={() => history.push(`/view?item=${nft.tokenId}`)}>
                   <CardMedia
@@ -114,25 +116,28 @@ class Listings extends React.Component {
                     title={nft.name}
                   />
                   <CardContent>
-                    <Typography>{nft.name}</Typography>
-                    <Typography>{nft.description && nft.description.slice(0, 60)}...</Typography>
-                    <Typography>
-                      {nftOwner}
-                    </Typography>
+                    <Typography variant="h6" component="h2">{nft.name}</Typography>
+                    <CardHeader
+                      avatar={
+                        <Avatar src={nft.ownerProfilePic} />
+                      }
+                      subheader={nft.owner && nft.owner.slice(0, 16)}
+                    />
                   </CardContent>
-                  <CardActions>
+                  </CardActionArea>
+                  <CardActions style={{backgroundColor: "black"}}>
                     {nft.price ? (
                       <Box>
-                        <Typography>{nft.price}</Typography>
-                        <Button>
-                          <Typography>Buy</Typography>
-                        </Button>
+                        <Typography color="textSecondary">Price</Typography>
+                        <Typography color="secondary">{nft.price} ETH</Typography>
                       </Box>
                     ) : (
-                      <Typography>Not for sale</Typography>
+                      <Box>
+                        <Typography color="textSecondary">Status</Typography>
+                        <Typography color="secondary">SOLD</Typography>
+                      </Box>
                     )}
                   </CardActions>
-                </CardActionArea>
               </Card>
             </Grid>
           )
