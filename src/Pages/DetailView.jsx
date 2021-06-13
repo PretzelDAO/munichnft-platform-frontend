@@ -9,6 +9,8 @@ import { OpenSeaPort, Network } from 'opensea-js'
 import { OrderSide } from 'opensea-js/lib/types'
 import TxDialog from './TxDialog';
 
+import ModalImage from 'react-modal-image';
+
 import CONFIG from '../config';
 let seaport;
 if (Web3.givenProvider) {
@@ -138,7 +140,11 @@ class DetailView extends React.Component {
         <Paper style={{ padding: '12px' }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
-              <img src={imageUrlOriginal} alt="" style={{ maxWidth: '350px', maxHeight: '600px', borderRadius: '4px' }} />
+              <ModalImage
+                small={imageUrlOriginal}
+                large={imageUrlOriginal}
+                alt={name}
+              />
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="h2">
@@ -156,15 +162,6 @@ class DetailView extends React.Component {
                 </Typography>
               ) : (
                 <>
-                  <Fab variant="extended" style={{ padding: '16px', margin: '8px', color: 'black', marginLeft: '0px' }} color="secondary" disabled>
-                    <img src={ethIcon} style={{ height: '24px' }} />
-                    <div style={{ marginLeft: '4px' }} />
-                    {price} ETH
-                  </Fab>
-
-                  {/*<Typography variant="body2">
-                  ~ 403€
-                  </Typography>*/}
                   {balance !== 0 && (
                     <Typography variant="h6" style={{ marginBottom: '4px', marginTop: '4px' }} >
                       Your available ETH {balance} ETH
@@ -172,11 +169,14 @@ class DetailView extends React.Component {
                   )}
                   <div />
                   {Web3.givenProvider ? (
-                    <Button variant="outlined" onClick={() => buyNft()} style={{ marginBottom: '4px', marginTop: '4px' }} >
-                      Buy for {price} ETH
-                    </Button>
+                    <Fab variant="extended" style={{ padding: '16px', margin: '8px', color: 'black', marginLeft: '0px' }} onClick={() => buyNft()}>
+                      Buy for&nbsp;
+                      {price}&nbsp;
+                      ETH&nbsp;
+                      <img src={ethIcon} style={{ height: '24px' }} />
+                    </Fab>
                   ) : (
-                    <Button variant="outlined" disabled style={{ marginBottom: '4px', marginTop: '4px' }} >
+                    <Button size="large" variant="outlined" disabled style={{ marginBottom: '12px', marginTop: '8px' }} >
                       Please install Metamask to buy this Artwork
                     </Button>
                   )}
