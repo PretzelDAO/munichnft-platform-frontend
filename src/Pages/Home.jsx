@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
 
   },
   header: {
-    height: '550px',
+    height: '400px',
     width: '100%',
     backgroundColor: 'black',
     display: 'flex',
@@ -22,6 +22,11 @@ const useStyles = makeStyles(theme => ({
       height: '225px',
     },
   },
+  mobilePicture: {
+    [theme.breakpoints.down('sm')]: {
+      width: '90%'
+    },
+  }
 }));
 
 class Home extends React.Component {
@@ -40,7 +45,7 @@ class Home extends React.Component {
     return (
       <div>
         <div className={classes.header}>
-          <img src={Logo} style={{ width: '90%' }}/>
+          <img src={Logo} className={classes.mobilePicture} />
           <Typography variant="h5" color="secondary" style={{ textAlign: 'center', marginTop: '12px' }}>
             For all makers, creator and builders in Munich and beyond
           </Typography>
