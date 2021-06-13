@@ -138,6 +138,7 @@ class MintNft extends React.Component {
     const addMetaData = async () => {
       const accounts = await web3.eth.getAccounts();
       const account = accounts[0];
+      console.log(account);
       const doc = JSON.stringify({
         name: nftName,
         description: nftDescription,
