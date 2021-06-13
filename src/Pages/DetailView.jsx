@@ -81,7 +81,7 @@ class DetailView extends React.Component {
     });
 
 
-    const accounts = await web3.eth.getAccounts();
+    const accounts = await web3.eth.requestAccounts();
     const account = accounts[0];
     if (!account) {
       return;
@@ -113,7 +113,7 @@ class DetailView extends React.Component {
     }
 
     const buyNft = async () => {
-      const accounts = await web3.eth.getAccounts();
+      const accounts = await web3.eth.requestAccounts();
       const account = accounts[0];
       const { tokenAddress, tokenId } = this.state;
       const { orders, count } = await seaport.api.getOrders({

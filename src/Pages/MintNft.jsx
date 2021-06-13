@@ -103,7 +103,7 @@ class MintNft extends React.Component {
     const listNft = async () => {
       const expirationTime = Math.round(Date.now() / 1000 + 60 * 60 * 24 * 365);
       const contractAddres = CONFIG.TOKEN_ADDRESS;
-      const accounts = await web3.eth.getAccounts();
+      const accounts = await web3.eth.requestAccounts();
       const account = accounts[0];
 
       const listing = await seaport.createSellOrder({
@@ -121,7 +121,7 @@ class MintNft extends React.Component {
 
     const mintNft = async () => {
       const contractAddres = CONFIG.TOKEN_ADDRESS;
-      const accounts = await web3.eth.getAccounts();
+      const accounts = await web3.eth.requestAccounts();
       const account = accounts[0];
       const contract = new web3.eth.Contract(contractAbi.ABI, contractAddres, {
         from: account, // default from address
@@ -136,7 +136,7 @@ class MintNft extends React.Component {
     }
 
     const addMetaData = async () => {
-      const accounts = await web3.eth.getAccounts();
+      const accounts = await web3.eth.requestAccounts();
       const account = accounts[0];
       console.log(account);
       const doc = JSON.stringify({
