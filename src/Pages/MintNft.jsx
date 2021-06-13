@@ -14,15 +14,15 @@ const client = create(new URL('https://ipfs.infura.io:5001'));
 import * as Web3 from 'web3'
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
 
-import { OpenSeaPort, Network } from 'opensea-js'
-import { OrderSide } from 'opensea-js/lib/types'
+import { OpenSeaPort, Network } from 'opensea-js';
+import { OrderSide } from 'opensea-js/lib/types';
 
-const seaport = new OpenSeaPort(Web3.givenProvider, {
-  networkName: Network.Rinkeby,
-});
+import contractAbi from '../res/contract';
 
 import CONFIG from '../config';
-import contractAbi from '../res/contract';
+const seaport = new OpenSeaPort(Web3.givenProvider, {
+  networkName: CONFIG.NETWORK,
+});
 
 const IpfsUploader = (props) => {
   // specify upload params and url for your files
@@ -101,7 +101,7 @@ class MintNft extends React.Component {
 
 
     const listNft = async () => {
-      const expirationTime = Math.round(Date.now() / 1000 + 60 * 60 * 24 * 10)
+      const expirationTime = Math.round(Date.now() / 1000 + 60 * 60 * 24 * 365);
       const contractAddres = CONFIG.TOKEN_ADDRESS;
       const accounts = await web3.eth.getAccounts();
       const account = accounts[0];

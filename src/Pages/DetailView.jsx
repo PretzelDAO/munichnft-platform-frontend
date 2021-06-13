@@ -7,11 +7,11 @@ import { Button, CircularProgress, Container, Grid, TextField, Typography, Dialo
 import * as Web3 from 'web3'
 import { OpenSeaPort, Network } from 'opensea-js'
 import { OrderSide } from 'opensea-js/lib/types'
-import CONFIG from '../config';
 import TxDialog from './TxDialog';
 
+import CONFIG from '../config';
 const seaport = new OpenSeaPort(Web3.givenProvider, {
-  networkName: Network.Rinkeby,
+  networkName: CONFIG.NETWORK,
 });
 
 const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');

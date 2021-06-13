@@ -21,10 +21,10 @@ import * as Web3 from 'web3'
 import Bignumber from 'bignumber.js';
 import { OpenSeaPort, Network } from 'opensea-js'
 import { OrderSide } from 'opensea-js/lib/types'
-import CONFIG from '../config';
 
-const seaport = new OpenSeaPort(window.web3.currentProvider, {
-  networkName: Network.Rinkeby,
+import CONFIG from '../config';
+const seaport = new OpenSeaPort(Web3.givenProvider, {
+  networkName: CONFIG.NETWORK,
 });
 
 const useStyles = makeStyles((theme) => ({
