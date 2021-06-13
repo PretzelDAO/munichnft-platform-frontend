@@ -1,7 +1,7 @@
 import React from 'react';
 import Bignumber from 'bignumber.js';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, CircularProgress, Container, Grid, TextField, Typography, Dialog, Paper, Fab } from '@material-ui/core';
+import { Button, CircularProgress, Container, Grid, CardHeader, Typography, Dialog, Paper, Fab, Avatar } from '@material-ui/core';
 
 
 import * as Web3 from 'web3'
@@ -74,6 +74,7 @@ class DetailView extends React.Component {
       imageUrlOriginal: asset.imageUrlOriginal,
       tokenId: tokenIdQuery,
       description: asset.description,
+      ownerProfilePic: asset.ownerProfilePic,
       owner: asset.owner,
       creator: asset.creator,
       price: asset.price,
@@ -107,7 +108,7 @@ class DetailView extends React.Component {
     const classes = useStyles();
     const {
       name, price, description, tokenId, imageUrlOriginal,
-      sold, dialogOpen, balance, owner, creator,
+      sold, dialogOpen, balance, owner, creator, ownerProfilePic,
     } = this.state;
 
 
@@ -152,10 +153,13 @@ class DetailView extends React.Component {
               <Typography variant="h2" style={{ wordBreak: 'break-all' }}>
                 {name} #{tokenId}
               </Typography>
-              <Typography variant="caption" style={{ marginBottom: '4px', marginTop: '4px' }} >
-                by @{creator}
-              </Typography>
-              <Typography variant="body2" style={{ marginBottom: '4px', marginTop: '4px' }} >
+              <CardHeader
+                avatar={
+                  <Avatar src={ownerProfilePic} />
+                }
+                subheader={creator.slice(0, 16)}
+              />
+              <Typography variant="body2" style={{ marginBottom: '4px', marginTop: '4px', marginLeft: '6px', justify: 'block' }} >
                 {description}
               </Typography>
               {sold ? (
