@@ -80,6 +80,7 @@ class MintNft extends React.Component {
 
       nftName: '',
       nftDescription: '',
+      resultingTokenId: '',
 
       listingPrice: 0,
     };
@@ -96,7 +97,7 @@ class MintNft extends React.Component {
       this.setState({ fileUploadResult: path });
     }
 
-    const { fileUploadResult, nftName, nftDescription, metaDataUploadResult, nftMintResult, listingPrice, listingResult } = this.state;
+    const { fileUploadResult, nftName, nftDescription, metaDataUploadResult, nftMintResult, listingPrice, listingResult, resultingTokenId } = this.state;
 
 
     const listNft = async () => {
@@ -107,7 +108,7 @@ class MintNft extends React.Component {
 
       const listing = await seaport.createSellOrder({
         asset: {
-          tokenId: 1, // TODO FIND OUT TODO!!!!,
+          tokenId: resultingTokenId,
           tokenAddress: contractAddres,
         },
         accountAddress: account,
@@ -126,17 +127,24 @@ class MintNft extends React.Component {
         from: account, // default from address
         gasPrice: '20000000000' // default gas price in wei, 20 gwei in this case
       });
-      const contractCallRes = await contract.methods.mint(account, metaDataUploadResult).send();
+      const contractCallRes = await contract.methods.mint(account, `https://ipfs.io/ipfs/${metaDataUploadResult}`).send();
       console.log(contractCallRes);
-      this.setState({ nftMintResult: contractCallRes })
+      this.setState({
+        nftMintResult: contractCallRes.blockHash,
+        resultingTokenId: contractCallRes.events.Transfer.returnValues.tokenId,
+      });
     }
 
     const addMetaData = async () => {
+      const accounts = await web3.eth.getAccounts();
+      const account = accounts[0];
       const doc = JSON.stringify({
         name: nftName,
         description: nftDescription,
         image: `https://ipfs.io/ipfs/${fileUploadResult}`,
         external_link: 'https://munichnft.com',
+        seller_fee_basis_points: 1000, // Indicates a 10% seller fee.
+        fee_recipient: account,
       });
 
       const cid = await client.add(doc);
@@ -161,6 +169,15 @@ class MintNft extends React.Component {
 
     const handleReset = () => {
       setActiveStep(0);
+      this.setState({
+        fileUploadResult: '',
+        metaDataUploadResult: '',
+        nftMintResult: '',
+        listingResult: '',
+        nftName: '',
+        nftDescription: '',
+        resultingTokenId: '',
+      });
     };
 
     const step1 = (
@@ -177,7 +194,7 @@ class MintNft extends React.Component {
             <Typography variant="body2">
               Uploaded: {fileUploadResult}
             </Typography>
-            <Button onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="massive">
+            <Button color="primary" size="large" onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="large">
               Next
             </Button>
           </Container>
@@ -191,19 +208,25 @@ class MintNft extends React.Component {
           Add Information to your Art
         </Typography>
         {metaDataUploadResult === '' ? (
-          <>
-            <TextField variant="outlined" placeholder="Name" value={nftName} onChange={(event) => this.setState({ nftName: event.target.value })} />
-            <TextareaAutosize placeholder="Description" rowsMin={6} value={nftDescription} onChange={(event) => this.setState({ nftDescription: event.target.value })} />
-            <Button variant="outlined" onClick={() => addMetaData()}>
-              Create Metadata!
-            </Button>
-          </>
+          <Grid container spacing={2} alignContent="center" justify="center" alignItems="center">
+            <Grid item xs={12}>
+              <TextField variant="outlined" placeholder="Name" value={nftName} onChange={(event) => this.setState({ nftName: event.target.value })} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextareaAutosize placeholder="Description" rowsMin={6} value={nftDescription} onChange={(event) => this.setState({ nftDescription: event.target.value })} />
+            </Grid>
+            <Grid item xs={12}>
+              <Button color="primary" size="large" variant="outlined" onClick={() => addMetaData()}>
+                Create Metadata!
+              </Button>
+            </Grid>
+          </Grid>
         ) : (
           <>
             <Typography variant="body2">
               Uploaded: {metaDataUploadResult}
             </Typography>
-            <Button onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="massive">
+            <Button color="primary" size="large" onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="large">
               Next
             </Button>
           </>
@@ -218,16 +241,16 @@ class MintNft extends React.Component {
             <Typography variant="h5">
               Mint your NFT
             </Typography>
-            <Button variant="outlined" onClick={() => mintNft()}>
+            <Button color="primary" size="large" variant="outlined" onClick={() => mintNft()}>
               Mint!
             </Button>
           </Container>
         ) : (
           <Container>
             <Typography variant="body2">
-              Listed: {nftMintResult}
+              Minted: {nftMintResult}
             </Typography>
-            <Button onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="massive">
+            <Button color="primary" size="large" onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="large">
               Next
             </Button>
           </Container>
@@ -243,7 +266,7 @@ class MintNft extends React.Component {
               List your NFT
             </Typography>
             <TextField variant="outlined" placeholder="Name" value={listingPrice} onChange={(event) => this.setState({ listingPrice: event.target.value })} />
-            <Button variant="outlined" onClick={() => listNft()}>
+            <Button color="primary" size="large" variant="outlined" onClick={() => listNft()}>
               List!
             </Button>
           </Container>
@@ -252,7 +275,7 @@ class MintNft extends React.Component {
             <Typography variant="body2">
               Listed: {listingResult}
             </Typography>
-            <Button onClick={handleReset} variant="outlined" className={classes.nextButtonStyle} size="massive">
+            <Button color="primary" size="large" onClick={handleReset} variant="outlined" className={classes.nextButtonStyle} size="large">
               Done - Mint another!
             </Button>
           </Container>
