@@ -170,7 +170,7 @@ class DetailView extends React.Component {
                 <>
                   {balance !== 0 && (
                     <Typography variant="h6" style={{ marginBottom: '4px', marginTop: '4px' }} >
-                      Your available ETH {balance} ETH
+                      Your Balance: {balance} ETH
                     </Typography>
                   )}
                   <div />
