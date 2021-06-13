@@ -16,6 +16,7 @@ import Home from './Pages/Home';
 
 import Navbar from './Navigation/Navbar';
 import NavbarDrawer from './Navigation/NavbarDrawer';
+import Footer from './Navigation/Footer';
 import Listings from './Pages/Listings';
 import DetailView from './Pages/DetailView';
 import MintNft from './Pages/MintNft';
@@ -85,7 +86,7 @@ class App extends React.Component {
       if (owner === 'BurnAddress') {
         return;
       }
-      
+
       let creator;
       if (asset.creator.user) {
         if (asset.creator.user.username) {
