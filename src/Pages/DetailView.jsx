@@ -1,7 +1,7 @@
 import React from 'react';
 import Bignumber from 'bignumber.js';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, CircularProgress, Container, Grid, TextField, Typography, Dialog } from '@material-ui/core';
+import { Button, CircularProgress, Container, Grid, TextField, Typography, Dialog, Paper } from '@material-ui/core';
 
 
 import * as Web3 from 'web3'
@@ -88,7 +88,7 @@ class DetailView extends React.Component {
     }
     web3.eth.getBalance(account).then((balance) => {
       console.log(web3.utils.fromWei(balance, 'ether'));
-      this.setState({ balance: web3.utils.fromWei(balance, 'ether')});
+      this.setState({ balance: web3.utils.fromWei(balance, 'ether') });
     });
   }
 
@@ -98,9 +98,9 @@ class DetailView extends React.Component {
 
   RenderDetailView() {
     const classes = useStyles();
-    const { 
-      name, artist, price, description, tokenId,imageUrlOriginal,
-      sold, buyOrder, dialogOpen,balance
+    const {
+      name, artist, price, description, tokenId, imageUrlOriginal,
+      sold, buyOrder, dialogOpen, balance
     } = this.state;
 
 
@@ -132,48 +132,50 @@ class DetailView extends React.Component {
 
     return (
       <Container className={classes.viewContainer}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <img src={imageUrlOriginal} alt="" style={{ maxWidth: '300px', maxHeight: '600px' }} />
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Typography variant="h2">
-              {name} #{tokenId}
-            </Typography>
-            <Typography variant="caption" style={{ marginBottom: '4px', marginTop: '4px' }} >
-              by @{artist}
-            </Typography>
-            <Typography variant="body2" style={{ marginBottom: '4px', marginTop: '4px' }} >
-              {description}
-            </Typography>
-            {sold ? (
-              <Typography variant="h5">
-                SOLD
+        <Paper style={{ padding: '12px' }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
+              <img src={imageUrlOriginal} alt="" style={{ maxWidth: '350px', maxHeight: '600px', borderRadius: '4px' }} />
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Typography variant="h2">
+                {name} #{tokenId}
               </Typography>
-            ) : (
-              <>
-                <TextField variant="outlined" value={`${price} ETH`} disabled style={{ marginBottom: '4px', marginTop: '4px' }} />
-                {/*<Typography variant="body2">
+              <Typography variant="caption" style={{ marginBottom: '4px', marginTop: '4px' }} >
+                by @{artist}
+              </Typography>
+              <Typography variant="body2" style={{ marginBottom: '4px', marginTop: '4px' }} >
+                {description}
+              </Typography>
+              {sold ? (
+                <Typography variant="h5">
+                  This item is currently not on Sale
+                </Typography>
+              ) : (
+                <>
+                  <TextField variant="outlined" value={`${price} ETH`} disabled style={{ marginBottom: '4px', marginTop: '4px' }} />
+                  {/*<Typography variant="body2">
                   ~ 403€
                   </Typography>*/}
-                <Typography variant="h6" style={{ marginBottom: '4px', marginTop: '4px' }} >
-                  Your available ETH {balance} ETH
+                  <Typography variant="h6" style={{ marginBottom: '4px', marginTop: '4px' }} >
+                    Your available ETH {balance} ETH
                 </Typography>
-                <Button variant="outlined" onClick={() => buyNft()} style={{ marginBottom: '4px', marginTop: '4px' }} >
-                  Buy for {price} ETH
+                  <Button variant="outlined" onClick={() => buyNft()} style={{ marginBottom: '4px', marginTop: '4px' }} >
+                    Buy for {price} ETH
                 </Button>
-              </>
-            )}
+                </>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
+        </Paper>
         <Dialog
-          open={dialogOpen}
-          onClose={() => this.setState({ dialogOpen: false })}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <TxDialog />
-        </Dialog>
+            open={dialogOpen}
+            onClose={() => this.setState({ dialogOpen: false })}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <TxDialog />
+          </Dialog>
       </Container>
     );
   }
