@@ -5,6 +5,10 @@ import {
 } from '@material-ui/core';
 
 import {
+  BorderColor,
+  ContactSupport,
+  Home,
+  Info,
   MenuOpen,
 } from '@material-ui/icons';
 
@@ -41,34 +45,34 @@ class NavbarDrawer extends React.Component {
         onOpen={onSidebarEventTouch(true)}
       >
         <div style={{ margin: '0 auto', textAlign: 'center' }}>
-          <img src={Logo} alt="MunichNFT" style={{ width: '10vh', height: 'auto', margin: '8px' }} />
+          <img src={Logo} alt="MunichNFT" style={{ width: '155px', height: 'auto', margin: '0px' }} />
         </div>
         <MenuList>
           <MenuItem onClick={() => { onMenuSelected(); history.push('/'); }}>
             <ListItemIcon>
-              <MenuOpen fontSize="small" />
+              <Home fontSize="small" />
             </ListItemIcon>
-            <Typography variant="inherit">Home - Coming Soon</Typography>
+            <Typography variant="inherit">Home</Typography>
           </MenuItem>
-          <MenuItem onClick={() => { onMenuSelected(); history.push('/munichandbeyond'); }}>
+          <MenuItem onClick={() => { onMenuSelected(); history.push('/about'); }}>
             <ListItemIcon>
-              <MenuOpen fontSize="small" />
+              <Info fontSize="small" />
             </ListItemIcon>
-            <Typography variant="inherit">in Munich and beyond</Typography>
+            <Typography variant="inherit">About</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => { onMenuSelected(); history.push('/artists'); }}>
+            <ListItemIcon>
+              <BorderColor fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">Artists</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => { onMenuSelected(); history.push('/imprint'); }}>
+            <ListItemIcon>
+              <ContactSupport fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">Imprint</Typography>
           </MenuItem>
         </MenuList>
-        <Container style={{ marginTop: '100%' }}>
-          <Link href="https://munichnft.com/imprint">
-            <Typography variant="body2">
-              Imprint&nbsp;
-            </Typography>
-          </Link>
-          <Link href="https://munichnft.com/about">
-            <Typography variant="body2">
-              About
-            </Typography>
-          </Link>
-        </Container>
       </SwipeableDrawer>
     );
   }
