@@ -81,7 +81,9 @@ class DetailView extends React.Component {
       sold: asset.sold,
     });
 
-
+    if (!web3) {
+      return;
+    }
     const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
     if (!account) {
@@ -147,7 +149,7 @@ class DetailView extends React.Component {
               />
             </Grid>
             <Grid item xs={12} md={8}>
-              <Typography variant="h2">
+              <Typography variant="h2" style={{ wordBreak: 'break-all' }}>
                 {name} #{tokenId}
               </Typography>
               <Typography variant="caption" style={{ marginBottom: '4px', marginTop: '4px' }} >
