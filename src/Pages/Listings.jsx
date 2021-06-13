@@ -103,7 +103,7 @@ class Listings extends React.Component {
     const { history } = this.props;
     let nftOwner = '';
     return (
-      <Grid container spacing={10} alignContent="center" justify="center" alignItems="center">
+      <Grid container spacing={10} alignContent="center" justify="center" alignItems="center" style={{ margin: '32px' }}>
         {this.state.nfts.map((nft) => {
           if (nft.owner.user) {
             nftOwner = nft.owner.user.username ? nft.owner.user.username : 'Owner';

@@ -80,8 +80,12 @@ class DetailView extends React.Component {
       buyOrder: asset.orders[0],
     });
 
+
     const accounts = await web3.eth.getAccounts();
     const account = accounts[0];
+    if (!account) {
+      return;
+    }
     web3.eth.getBalance(account).then((balance) => {
       console.log(web3.utils.fromWei(balance, 'ether'));
       this.setState({ balance: web3.utils.fromWei(balance, 'ether')});

@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
 
   },
   header: {
-    height: '800px',
+    height: '550px',
     width: '100%',
     backgroundColor: 'black',
     display: 'flex',

@@ -63,7 +63,10 @@ class App extends React.Component {
                 exact
                 path={'/'}
                 render={props => (
-                  <Home {...props} />
+                  <>
+                    <Home {...props} />
+                    <Listings {...props} />
+                  </>
                 )}
               />
               <Route

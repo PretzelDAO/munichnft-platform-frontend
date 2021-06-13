@@ -14,6 +14,8 @@ import {
   Menu as MenuIcon,
 } from '@material-ui/icons';
 
+import miniLogo from '../res/logo.gif';
+
 const useStyles = makeStyles((theme) => ({
   root: {},
   settingsPosition: {
@@ -56,18 +58,15 @@ class Navbar extends React.Component {
             <Typography variant="h6" color="secondary">
               MunichNFT
             </Typography>
-            <MetaMaskButton.Outline size="medium">
-              Connect
-            </MetaMaskButton.Outline>
           </Toolbar>
         </Hidden>
         <Hidden smDown>
-          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="Coming Soon" />
-            <Tab label="in Munich and beyond" />
-            <MetaMaskButton.Outline size="medium">
-              Connect
-            </MetaMaskButton.Outline>
+          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
+            <img src={miniLogo} style={{ maxHeight: '57px' }} />
+            <div style={{ marginLeft: 'auto', marginRight: '32px' }}>
+              <Tab label="Home" />
+              <Tab label="in Munich and beyond" />
+            </div>
           </Tabs>
         </Hidden>
       </AppBar>
