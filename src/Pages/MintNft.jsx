@@ -80,6 +80,7 @@ class MintNft extends React.Component {
 
       nftName: '',
       nftDescription: '',
+      resultingTokenId: '',
 
       listingPrice: 0,
     };
@@ -96,7 +97,7 @@ class MintNft extends React.Component {
       this.setState({ fileUploadResult: path });
     }
 
-    const { fileUploadResult, nftName, nftDescription, metaDataUploadResult, nftMintResult, listingPrice, listingResult } = this.state;
+    const { fileUploadResult, nftName, nftDescription, metaDataUploadResult, nftMintResult, listingPrice, listingResult, resultingTokenId } = this.state;
 
 
     const listNft = async () => {
@@ -107,7 +108,7 @@ class MintNft extends React.Component {
 
       const listing = await seaport.createSellOrder({
         asset: {
-          tokenId: 1, // TODO FIND OUT TODO!!!!,
+          tokenId: resultingTokenId, 
           tokenAddress: contractAddres,
         },
         accountAddress: account,
@@ -126,9 +127,12 @@ class MintNft extends React.Component {
         from: account, // default from address
         gasPrice: '20000000000' // default gas price in wei, 20 gwei in this case
       });
-      const contractCallRes = await contract.methods.mint(account, metaDataUploadResult).send();
+      const contractCallRes = await contract.methods.mint(account, `https://ipfs.io/ipfs/${metaDataUploadResult}`).send();
       console.log(contractCallRes);
-      this.setState({ nftMintResult: contractCallRes })
+      this.setState({ 
+        nftMintResult: contractCallRes.blockHash,
+        resultingTokenId: contractCallRes.events.Transfer.returnValues.tokenId,
+      });
     }
 
     const addMetaData = async () => {
@@ -161,6 +165,15 @@ class MintNft extends React.Component {
 
     const handleReset = () => {
       setActiveStep(0);
+      this.setState({
+        fileUploadResult: '',
+        metaDataUploadResult: '',
+        nftMintResult: '',
+        listingResult: '',
+        nftName: '',
+        nftDescription: '',
+        resultingTokenId: '',
+      });
     };
 
     const step1 = (
@@ -225,7 +238,7 @@ class MintNft extends React.Component {
         ) : (
           <Container>
             <Typography variant="body2">
-              Listed: {nftMintResult}
+              Minted: {nftMintResult}
             </Typography>
             <Button onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="massive">
               Next

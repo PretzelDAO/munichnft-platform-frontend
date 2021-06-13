@@ -49,7 +49,7 @@ class Listings extends React.Component {
       assetsObjects = await seaport.api.getAssets({
         asset_contract_address: tokenAddress, // string
         offset: 0,
-        limit: 10, // string | number | null
+        limit: 100, // string | number | null
       });
     } catch (e) {
       console.log('retrying');
@@ -58,7 +58,11 @@ class Listings extends React.Component {
       }, 1500);
       return;
     }
-    assetsObjects.assets.forEach((asset) => {
+    console.log(assetsObjects);
+    assetsObjects.assets.reverse().forEach((asset) => {
+      if (!asset.imageUrlOriginal) {
+        return;
+      }
       let price;
       let sold = false;
       console.log(asset);
