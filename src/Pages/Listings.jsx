@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
   root: {},
 }));
 
+const web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+
 
 class Listings extends React.Component {
   constructor(props) {
@@ -69,7 +71,7 @@ class Listings extends React.Component {
       console.log(asset);
       if (asset.sellOrders) {
         if (asset.sellOrders[0]) {
-          price = web3.utils.fromWei(new Bignumber(asset.sellOrders[0].basePrice).toNumber(), 'ether');
+          price = web3.utils.fromWei(`${new Bignumber(asset.sellOrders[0].basePrice).toNumber()}`, 'ether');
         } else {
           price = 0;
           sold = true;

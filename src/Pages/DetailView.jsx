@@ -140,10 +140,10 @@ class DetailView extends React.Component {
             <Typography variant="h2">
               {name} #{tokenId}
             </Typography>
-            <Typography variant="caption">
+            <Typography variant="caption" style={{ marginBottom: '4px', marginTop: '4px' }} >
               by @{artist}
             </Typography>
-            <Typography variant="body2">
+            <Typography variant="body2" style={{ marginBottom: '4px', marginTop: '4px' }} >
               {description}
             </Typography>
             {sold ? (
@@ -152,16 +152,15 @@ class DetailView extends React.Component {
               </Typography>
             ) : (
               <>
-                <TextField variant="outlined" value={`${price} ETH`} />
-                <TextField variant="outlined" value={`Your balance ${price} ETH`} />
-                <Typography variant="body2">
+                <TextField variant="outlined" value={`${price} ETH`} disabled style={{ marginBottom: '4px', marginTop: '4px' }} />
+                {/*<Typography variant="body2">
                   ~ 403€
+                  </Typography>*/}
+                <Typography variant="h6" style={{ marginBottom: '4px', marginTop: '4px' }} >
+                  Your available ETH {balance} ETH
                 </Typography>
-                <Typography variant="h6">
-                  Your Balance: {balance} ETH
-                </Typography>
-                <Button variant="outlined" onClick={() => buyNft()}>
-                  Buy
+                <Button variant="outlined" onClick={() => buyNft()} style={{ marginBottom: '4px', marginTop: '4px' }} >
+                  Buy for {price} ETH
                 </Button>
               </>
             )}

@@ -125,7 +125,7 @@ class MintNft extends React.Component {
       const account = accounts[0];
       const contract = new web3.eth.Contract(contractAbi.ABI, contractAddres, {
         from: account, // default from address
-        gasPrice: '20000000000' // default gas price in wei, 20 gwei in this case
+        gasPrice: '10000000000' // default gas price in wei, 20 gwei in this case
       });
       const contractCallRes = await contract.methods.mint(account, `https://ipfs.io/ipfs/${metaDataUploadResult}`).send();
       console.log(contractCallRes);
