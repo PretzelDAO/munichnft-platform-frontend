@@ -2354,6 +2354,11 @@
     "@ethersproject/properties" "^5.3.0"
     "@ethersproject/strings" "^5.3.0"
 
+"@fontsource/roboto-mono@^4.4.5":
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto-mono/-/roboto-mono-4.4.5.tgz#63c54719a8d592d793632501a56d570572c17065"
+  integrity sha512-y9fbKH1eCCkcqtRGhevFlmR5schCRz1GiTT/VYz6z8Ij0WHW0tS26BhMyXhmSgEIiFt+254yS8teqP+cc7Xq0w==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
