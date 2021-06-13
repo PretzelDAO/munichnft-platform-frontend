@@ -73,6 +73,7 @@ class DetailView extends React.Component {
       tokenId: tokenIdQuery,
       description: asset.description,
       owner: asset.owner,
+      creator: asset.creator,
       price: asset.price,
       buyOrder: asset.buyOrder,
     });
@@ -93,11 +94,15 @@ class DetailView extends React.Component {
     this.refresh();
   }
 
+  async componentDidMount() {
+    this.refresh();
+  }
+
   RenderDetailView() {
     const classes = useStyles();
     const {
       name, price, description, tokenId, imageUrlOriginal,
-      sold, dialogOpen, balance, owner,
+      sold, dialogOpen, balance, owner, creator,
     } = this.state;
 
 
@@ -139,14 +144,14 @@ class DetailView extends React.Component {
                 {name} #{tokenId}
               </Typography>
               <Typography variant="caption" style={{ marginBottom: '4px', marginTop: '4px' }} >
-                by @{owner}
+                by @{creator}
               </Typography>
               <Typography variant="body2" style={{ marginBottom: '4px', marginTop: '4px' }} >
                 {description}
               </Typography>
               {sold ? (
                 <Typography variant="h5">
-                  This item is currently not on Sale
+                  Sold to @{owner}
                 </Typography>
               ) : (
                 <>

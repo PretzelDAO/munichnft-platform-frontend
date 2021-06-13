@@ -85,6 +85,16 @@ class App extends React.Component {
       if (owner === 'BurnAddress') {
         return;
       }
+      
+      let creator;
+      if (asset.creator.user) {
+        if (asset.creator.user.username) {
+          creator = asset.creator.user.username;
+        }
+      }
+      if (!creator) {
+        creator = asset.creator.address;
+      }
       const buyOrderObj = asset.sell_orders && asset.sell_orders[0];
       nfts.push({
         name: asset.name,
@@ -92,6 +102,7 @@ class App extends React.Component {
         tokenId: asset.token_id,
         description: asset.description,
         owner,
+        creator,
         ownerProfilePic: asset.owner.profile_img_url,
         price,
         buyOrder: buyOrderObj,

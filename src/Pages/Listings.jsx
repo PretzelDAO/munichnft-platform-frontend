@@ -60,7 +60,7 @@ class Listings extends React.Component {
                         avatar={
                           <Avatar src={nft.ownerProfilePic} />
                         }
-                        subheader={nft.owner && nft.owner.slice(0, 16)}
+                        subheader={nft.creator.slice(0, 16)}
                       />
                     </CardContent>
 
@@ -73,7 +73,7 @@ class Listings extends React.Component {
                       ) : (
                         <Box>
                           <Typography variant="body2" style={{ color: "#7F7F7F" }}>Status</Typography>
-                          <Typography color="secondary">SOLD</Typography>
+                          <Typography color="secondary">Sold to @{nft.owner}</Typography>
                         </Box>
                       )}
                     </CardActions>
