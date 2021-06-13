@@ -53,10 +53,10 @@ class App extends React.Component {
     };
 
     return (
-      <MuiThemeProvider theme={lightTheme}>
+      <MuiThemeProvider theme={lightTheme}> 
         <CssBaseline>
-          <Navbar {...this.props} onMenuSelected={onMenuSelected} />
-          <NavbarDrawer {...this.props} swipeSidebarOpen={this.state.swipeSidebarOpen} onSidebarEventTouch={onSidebarEventTouch} onMenuSelected={onMenuSelected} />
+          <Navbar {...this.props} history={history} onMenuSelected={onMenuSelected} />
+          <NavbarDrawer {...this.props} history={history} swipeSidebarOpen={this.state.swipeSidebarOpen} onSidebarEventTouch={onSidebarEventTouch} onMenuSelected={onMenuSelected} />
           <Router style={{ height: '100%' }} history={history}>
             <Switch>
               <Route

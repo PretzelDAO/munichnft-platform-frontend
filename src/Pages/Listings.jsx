@@ -14,6 +14,7 @@ import {
   Button,
   Link,
   Grid,
+  Divider,
 } from "@material-ui/core";
 
 import * as Web3 from 'web3'
@@ -103,50 +104,59 @@ class Listings extends React.Component {
     const { history } = this.props;
     let nftOwner = '';
     return (
-      <Grid container spacing={10} alignContent="center" justify="center" alignItems="center" style={{ margin: '32px' }}>
-        {this.state.nfts.map((nft) => {
-          if (nft.owner.user) {
-            nftOwner = nft.owner.user.username ? nft.owner.user.username : 'Owner';
-          }
-          console.log(nft);
-          return (
-            <Grid item xs={12} md={4} lg={3}>
-              <Card key={nft.tokenId}>
-                <CardActionArea onClick={() => history.push(`/view?item=${nft.tokenId}`)}>
-                  <CardMedia
-                    component="img"
-                    className={classes.media}
-                    image={nft.imageUrlOriginal}
-                    title={nft.name}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" component="h2">{nft.name}</Typography>
-                    <CardHeader
-                      avatar={
-                        <Avatar src={nft.ownerProfilePic} />
-                      }
-                      subheader={nft.owner && nft.owner.slice(0, 16)}
+      <Container fixed style={{ maxWidth: "1600px" }}>
+        <Box pt={10} pb={4}>
+          <Typography variant="h5" component="h1">
+            First edition NFTs
+          </Typography>
+          <Divider variant="fullWidth" />
+        </Box>
+        <Grid container spacing={6} alignContent="center" justify="center" alignItems="center">
+          {this.state.nfts.map((nft) => {
+            if (nft.owner.user) {
+              nftOwner = nft.owner.user.username ? nft.owner.user.username : 'Owner';
+            }
+            console.log(nft);
+            return (
+              <Grid item xs={12} sm={6} md={4} lg={3}>
+                <Card key={nft.tokenId}>
+                  <CardActionArea onClick={() => history.push(`/view?item=${nft.tokenId}`)}>
+                    <CardMedia
+                      component="img"
+                      className={classes.media}
+                      image={nft.imageUrlOriginal}
+                      title={nft.name}
                     />
-                  </CardContent>
+                    <CardContent>
+                      <Typography variant="h6" component="h2">{nft.name}</Typography>
+                      <CardHeader
+                        avatar={
+                          <Avatar src={nft.ownerProfilePic} />
+                        }
+                        subheader={nft.owner && nft.owner.slice(0, 16)}
+                      />
+                    </CardContent>
+
+                    <CardActions style={{ backgroundColor: "black", padding: 24 }}>
+                      {nft.price ? (
+                        <Box>
+                          <Typography variant="body2" style={{ color: "#7F7F7F" }}>Price</Typography>
+                          <Typography color="secondary">{nft.price} ETH</Typography>
+                        </Box>
+                      ) : (
+                        <Box>
+                          <Typography variant="body2" style={{ color: "#7F7F7F" }}>Status</Typography>
+                          <Typography color="secondary">SOLD</Typography>
+                        </Box>
+                      )}
+                    </CardActions>
                   </CardActionArea>
-                  <CardActions style={{backgroundColor: "black"}}>
-                    {nft.price ? (
-                      <Box>
-                        <Typography color="textSecondary">Price</Typography>
-                        <Typography color="secondary">{nft.price} ETH</Typography>
-                      </Box>
-                    ) : (
-                      <Box>
-                        <Typography color="textSecondary">Status</Typography>
-                        <Typography color="secondary">SOLD</Typography>
-                      </Box>
-                    )}
-                  </CardActions>
-              </Card>
-            </Grid>
-          )
-        })}
-      </Grid>
+                </Card>
+              </Grid>
+            )
+          })}
+        </Grid>
+      </Container>
     );
   }
 
