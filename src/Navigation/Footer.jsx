@@ -1,12 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container } from '@material-ui/core';
+import { Typography, Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   footerStyle: {
-    backgrodColor: 'black',
-    height: '32px',
+    backgroundColor: 'black',
     width: '100%',
+    marginTop: '16px',
+    padding: '8px 16px',
+    textAlign: 'center'
   },
 }));
 
@@ -22,14 +24,24 @@ class Footer extends React.Component {
 
   RenderFooter() {
     const classes = useStyles();
+    const {
+      history
+    } = this.props;
 
     return (
       <div className={classes.footerStyle}>
-        We also have an empty Footer!
+        <Typography
+          variant="body2" color="secondary">
+          © 2021 Chair of Strategy and Organization, Technical University of Munich. All Rights Reserved.
+          <br />
+          <Link onClick={ () => {history.push('/imprint'); window.scrollTo(0, 0)}} color="secondary"> Legal Disclosure</Link>
+
+
+        </Typography>
+
       </div>
     );
   }
-
   render() {
     return (
       <this.RenderFooter />

@@ -191,6 +191,7 @@ class App extends React.Component {
               />
             </Switch>
           </Router>
+          <Footer history={history} />
         </CssBaseline>
       </MuiThemeProvider>
     );
