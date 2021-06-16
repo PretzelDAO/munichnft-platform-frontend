@@ -1,7 +1,7 @@
 import React from 'react';
 import Bignumber from 'bignumber.js';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, CircularProgress, Container, Grid, CardHeader, Typography, Dialog, Paper, Fab, Avatar } from '@material-ui/core';
+import { Box, Button, CircularProgress, Container, Grid, CardHeader, Typography, Dialog, Paper, Fab, Avatar } from '@material-ui/core';
 
 
 import * as Web3 from 'web3'
@@ -24,9 +24,6 @@ if (Web3.givenProvider) {
 import ethIcon from '../res/ethereum.png';
 
 const useStyles = makeStyles(theme => ({
-  viewContainer: {
-    marginTop: '64px',
-  },
 }));
 
 class DetailView extends React.Component {
@@ -139,27 +136,31 @@ class DetailView extends React.Component {
     };
 
     return (
-      <Container className={classes.viewContainer}>
-        <Paper style={{ padding: '12px' }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <ModalImage
+      <Container>
+        <Box pt={10}></Box>
+          <Grid container spacing={8}>
+            <Grid item xs={12} md={7}>
+              <ModalImage className={'modalimagestyle'} 
+              hideDownload={true} 
                 small={imageUrlOriginal}
                 large={imageUrlOriginal}
                 alt={name}
               />
             </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="h2" style={{ wordBreak: 'break-all' }}>
-                {name} #{tokenId}
+            <Grid item xs={12} md={5}>
+              <Typography component="h1" gutterBottom variant="h2">
+                {name}
               </Typography>
-              <CardHeader
+              <Typography variant="overline" display="block" gutterBottom>
+        Token #{tokenId}
+      </Typography>
+              <CardHeader 
                 avatar={
                   <Avatar src={ownerProfilePic} />
                 }
-                subheader={creator.slice(0, 16)}
+                subheader={'Created by ' + creator.slice(0, 16)}
               />
-              <Typography variant="body2" style={{ marginBottom: '4px', marginTop: '4px', marginLeft: '6px', justify: 'block' }} >
+              <Typography variant="body2" gutterBottom style={{marginTop: '20px'}} >
                 {description}
               </Typography>
               {sold ? (
@@ -168,14 +169,10 @@ class DetailView extends React.Component {
                 </Typography>
               ) : (
                 <>
-                  {balance !== 0 && (
-                    <Typography variant="h6" style={{ marginBottom: '4px', marginTop: '4px' }} >
-                      Your Balance: {balance} ETH
-                    </Typography>
-                  )}
                   <div />
                   {Web3.givenProvider ? (
-                    <Fab variant="extended" style={{ padding: '16px', margin: '8px', color: 'black', marginLeft: '0px' }} onClick={() => buyNft()}>
+                    <Fab variant="contained" color="secondary" style={{ backgroundColor:'yellow', padding: '16px', margin: '8px', color: 'black', marginLeft: '0px', boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)' }} 
+                    onClick={() => buyNft()}>
                       Buy for&nbsp;
                       {price}&nbsp;
                       ETH&nbsp;
@@ -190,7 +187,6 @@ class DetailView extends React.Component {
               )}
             </Grid>
           </Grid>
-        </Paper>
         <Dialog
           open={dialogOpen}
           onClose={() => this.setState({ dialogOpen: false })}
