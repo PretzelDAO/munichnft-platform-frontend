@@ -3,13 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Typography } from '@material-ui/core';
 
 import Logo from '../res/logo.gif';
+import munichNFTanimation from '../res/munichNFT-animated-logo2.gif';
 
 const useStyles = makeStyles(theme => ({
   root: {
 
   },
   header: {
-    height: '400px',
     width: '100%',
     backgroundColor: 'black',
     display: 'flex',
@@ -17,7 +17,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    paddingTop: '18px',
+    paddingTop: '4rem',
+    paddingBottom: '4rem',
     [theme.breakpoints.down('sm')]: {
       height: '225px',
     },
@@ -45,10 +46,7 @@ class Home extends React.Component {
     return (
       <div>
         <div className={classes.header}>
-          <img src={Logo} className={classes.mobilePicture} />
-          <Typography variant="h5" color="secondary" style={{ textAlign: 'center', marginTop: '12px' }}>
-            For all makers, creator and builders in Munich and beyond
-          </Typography>
+          <img src={munichNFTanimation} className={classes.mobilePicture} />
         </div>
       </div>
     );
