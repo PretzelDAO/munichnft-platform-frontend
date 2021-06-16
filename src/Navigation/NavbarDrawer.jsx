@@ -70,7 +70,7 @@ class NavbarDrawer extends React.Component {
             <ListItemIcon>
               <BorderColor fontSize="small" />
             </ListItemIcon>
-            <Typography variant="inherit">Q and A</Typography>
+            <Typography variant="inherit">FAQ</Typography>
           </MenuItem>
           <MenuItem onClick={() => { onMenuSelected(); history.push('/imprint'); }}>
             <ListItemIcon>
