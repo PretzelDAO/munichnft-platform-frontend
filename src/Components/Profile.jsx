@@ -7,6 +7,7 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import {
     Avatar,
     Box,
+    Button,
     Container,
     Card,
     CardHeader,
@@ -25,8 +26,9 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flexDirection: 'column',
         alignItems: 'center',
-        paddingBottom: 20,
-        paddingTop: 20,
+        paddingBottom: 24,
+        paddingTop: 24,
+        minHeight: '582px',
 
     },
     image: {
@@ -40,7 +42,9 @@ const useStyles = makeStyles(theme => ({
         objectFit: 'cover'
     },
     iconGrid: {
-        textAlign: 'center'
+        textAlign: 'center',
+        paddingLeft: 24,
+        paddingRight: 24,
     }
 }));
 
@@ -91,27 +95,29 @@ class Profile extends React.Component {
                     <Typography variant="body2" gutterBottom>{
                         p.description}
                     </Typography>
-                    <Grid container spacing={3} direction="row" alignItems="flex-end" className={classes.iconGrid}>
+
+                </CardContent>
+                <Box style={{ marginTop: 'auto', width: '100%' }}>
+                    <Grid container direction="row" alignItems="flex-end" className={classes.iconGrid}>
                         <Grid item xs={6}>
-                            <Link href={p.twitter} target="_blanc" rel="noopener">
+                            <Link href={p.twitter} target="_blank" rel="noopener">
                                 <TwitterIcon />
                             </Link>
 
                         </Grid>
-                        <Grid item xs={6} style={{paddingTop: '32px'}}>
+                        <Grid item xs={6} style={{ marginTop: 'auto' }}>
                             {p.linkedin ?
-                                <Link href={p.linkedin} target="_blanc" rel="noopener">
+                                <Link href={p.linkedin} target="_blank" rel="noopener">
                                     <LinkedInIcon />
                                 </Link>
                                 :
-                                <Link href={p.instagram} target="_blanc" rel="noopener">
+                                <Link href={p.instagram} target="_blank" rel="noopener">
                                     <InstagramIcon />
                                 </Link>
                             }
                         </Grid>
                     </Grid>
-
-                </CardContent>
+                </Box>
             </Card>
         );
     }

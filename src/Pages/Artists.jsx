@@ -71,10 +71,8 @@ class Artists extends React.Component {
     const classes = useStyles();
 
     return (
-      <Container fixed>
-        <Typography variant="h1" component="h1" gutterBottom>
-          Artists
-        </Typography>
+      <Container>
+        <Box pt={10}></Box>
         <Grid container spacing={6} alignContent="center" justify="flex-start" alignItems="flex-start">
           {
             this.state.artists.map((p) => {

@@ -97,10 +97,10 @@ class About extends React.Component {
         image: johannes,
         description: 'Information Systems @TUM',
         title: 'Developer',
-        twitter: 'https://twitter.com/',
+        twitter: 'https://twitter.com/JHNTheisen',
         linkedin: 'https://www.linkedin.com/in/johannes-theisen-b8111b149/'
       },
-    ],
+      ],
     };
 
     this.RenderAbout = this.RenderAbout.bind(this);
@@ -110,23 +110,23 @@ class About extends React.Component {
     const classes = useStyles();
 
     return (
-      <Container fixed>
-        <Typography variant="h1" component="h1" gutterBottom>
-          About
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          munichNFT is the world's first city-NFT and a platform for creatives and artists who want to learn about, create, mint, auction and buy NFTs. Become part of our MunichNFT community in the Web 3.0 revolution by joining us on discord and twitter!
-        </Typography>
-
-        <Typography variant="h2" component="h2" gutterBottom>
-          Core Team
-        </Typography>
+      <Container>
+        <Box pt={10} pb={8}>
+          <Typography variant="body1" gutterBottom>
+            munichNFT is the world's first city-NFT platform for creatives and artists who want to learn about, create, mint, auction and buy NFTs. Become part of our MunichNFT community in the Web 3.0 revolution by joining us on <Link href="https://discord.gg/CmuQjxpRvg" style={{ color: "#808080", textDecoration: "underline" }}>Discord</Link> and <Link href="https://twitter.com/NftMunich" style={{ color: "#808080", textDecoration: "underline" }}>Twitter</Link>!
+          </Typography>
+        </Box>
+        <Box pb={4}>
+          <Typography variant="h2" component="h2" gutterBottom>
+            Core Team
+          </Typography>
+        </Box>
         <Grid container spacing={6} alignContent="center" justify="flex-start" alignItems="flex-start">
           {
             this.state.core.map((p) => {
               return (
-                <Grid item xs={12} sm={6} md={4}>
-                  <Profile person={p}/>
+                <Grid item xs={12} sm={6} lg={4}>
+                  <Profile person={p} />
                 </Grid>
               )
             })
@@ -134,15 +134,15 @@ class About extends React.Component {
         </Grid>
 
 
-        <Typography variant="h2" component="h2" gutterBottom style={{marginTop: '48px'}}>
-          Helpers
+        <Typography variant="h2" component="h2" gutterBottom style={{ marginTop: '48px' }}>
+          Hackathon Helper
         </Typography>
         <Grid container spacing={6} alignContent="center" justify="flex-start" alignItems="flex-start">
           {
             this.state.helpers.map((p) => {
               return (
                 <Grid item xs={12} sm={6} md={4}>
-                  <Profile person={p}/>
+                  <Profile person={p} />
                 </Grid>
               )
             })
