@@ -91,14 +91,14 @@ class Profile extends React.Component {
                     <Typography variant="body2" gutterBottom>{
                         p.description}
                     </Typography>
-                    <Grid container spacing={3} direction="row" className={classes.iconGrid}>
+                    <Grid container spacing={3} direction="row" alignItems="flex-end" className={classes.iconGrid}>
                         <Grid item xs={6}>
                             <Link href={p.twitter} target="_blanc" rel="noopener">
                                 <TwitterIcon />
                             </Link>
 
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} style={{paddingTop: '32px'}}>
                             {p.linkedin ?
                                 <Link href={p.linkedin} target="_blanc" rel="noopener">
                                     <LinkedInIcon />
