@@ -79,7 +79,7 @@ class About extends React.Component {
       helpers: [{
         name: 'Lukas Ruppert',
         image: lukas,
-        description: 'Management & Technology @ TUM',
+        description: 'Management & Technology @TUM',
         title: 'Coordinator',
         twitter: 'https://twitter.com/Lk_Ruppert',
         linkedin: 'https://www.linkedin.com/in/lukas-ruppert/'
