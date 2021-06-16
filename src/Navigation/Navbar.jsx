@@ -38,7 +38,7 @@ class Navbar extends React.Component {
 
     const { onMenuSelected, history } = this.props;
 
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(5); // higher than #tabs to hide initial underline
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -68,7 +68,7 @@ class Navbar extends React.Component {
             </Grid>
             <Grid sm={8} item>
               <Grid container justify="flex-end">
-              <Tabs value={value}
+          <Tabs value={value}
           onChange={handleChange}
           aria-label="Navigation Tabs"
           variant="fullWidth">
