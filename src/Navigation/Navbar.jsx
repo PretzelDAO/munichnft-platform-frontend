@@ -61,8 +61,17 @@ class Navbar extends React.Component {
           </Toolbar>
         </Hidden>
         <Hidden smDown>
-          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
-            <img src={miniLogo} style={{ maxHeight: '45px', padding: '8px' }} onClick={() => history.push('/')} />
+          <Tabs value={value}
+          onChange={handleChange}
+          aria-label="simple tabs example"
+          variant="fullWidth"
+          TabIndicatorProps={{
+            style: {
+              height:"0px",
+            }
+          }}
+          >
+            <img src={miniLogo} style={{ maxHeight: '45px', padding: '8px', cursor: 'pointer' }} onClick={() => history.push('/')} />
             <div style={{ marginLeft: 'auto', marginRight: '32px' }}>
               <Tab label="Home" onClick={() => history.push('/')}/>
               <Tab label="About" onClick={() => history.push('/about')}/>
