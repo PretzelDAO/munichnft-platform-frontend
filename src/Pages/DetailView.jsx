@@ -1,7 +1,7 @@
 import React from 'react';
 import Bignumber from 'bignumber.js';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, CircularProgress, Container, Grid, CardHeader, Typography, Dialog, Paper, Fab, Avatar } from '@material-ui/core';
+import { Box, Button, CircularProgress, Container, Grid, CardHeader, Typography, Dialog, Paper, Fab, Avatar, Link } from '@material-ui/core';
 
 
 import * as Web3 from 'web3'
@@ -163,6 +163,7 @@ class DetailView extends React.Component {
             <Typography variant="body2" gutterBottom style={{ marginTop: '20px' }} >
               {description}
             </Typography>
+
             {sold ? (
               <Typography variant="h5" style={{ marginTop: '32px' }}>
                 Sold to @{owner}
@@ -185,6 +186,11 @@ class DetailView extends React.Component {
                 )}
               </>
             )}
+
+            <div style={{marginTop: '16px', fontSize: '12px'}}>
+              <Link href={`https://opensea.io/assets/0xce4f570801a50ee1833b7480ef16c4fd1b3caa8f/${tokenId}`} target="_blank" rel="noopener">View on OpenSea</Link>
+            </div>
+
           </Grid>
         </Grid>
         <Dialog
