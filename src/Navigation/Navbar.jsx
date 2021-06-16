@@ -64,7 +64,7 @@ class Navbar extends React.Component {
         <Hidden smDown>
         <Grid container style={{ maxWidth: '1280px', margin: 'auto' }}>
             <Grid sm={4} item style={{ lineHeight: '1' }}>
-            <img src={miniLogo} alt="munichNFT Logo" style={{ maxHeight: '44px', marginLeft: '16px', padding: '8px', cursor: 'pointer' }} onClick={() => history.push('/')} />
+            <img src={miniLogo} alt="munichNFT Logo" style={{ maxHeight: '44px', marginLeft: '16px', padding: '8px', cursor: 'pointer' }} onClick={() => {setValue(5) ;history.push('/')}} />
             </Grid>
             <Grid sm={8} item>
               <Grid container justify="flex-end">
