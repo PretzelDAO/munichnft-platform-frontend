@@ -20,7 +20,7 @@ import {
 
 import domi from '../res/domi.jpg';
 import max from '../res/max.jpg';
-import tomal from '../res/tomal.png';
+import tomal from '../res/tomal.jpg';
 import nils from '../res/nils.jpg';
 
 const useStyles = makeStyles(theme => ({
@@ -41,13 +41,6 @@ class Artists extends React.Component {
         instagram: 'https://www.instagram.com/dominikbais/'
       },
       {
-        name: 'Max Haarich',
-        image: max,
-        description: `"I am a Munich-based conceptual artist and ethics consultant with focus on technology. Munich is the place where a lot of money and tech is concentrated at the moment. In my opinion, arts can help to reflect the usage and impact of those resources. Therefore, my favorite place is the Kreativquartier where more and more Start-up's settle amid a lively arts scene. I am at the same time critical and enthusiastic about NFT and have given numerous interviews about my NFT art, which which integrates both perspectives. I would like to represent Munich with a balanced and responsible view on this fascinating technology."`,
-        twitter: 'https://twitter.com/UzupisMUC',
-        instagram: 'https://www.instagram.com/uzupis_munich/'
-      },
-      {
         name: 'Nils Fröhling',
         image: nils,
         description: `"Munich based architect & digital artist."`,
@@ -61,6 +54,13 @@ class Artists extends React.Component {
         twitter: 'https://twitter.com/tomalganguly',
         instagram: 'https://www.instagram.com/tomstr83'
       },
+      {
+        name: 'Max Haarich',
+        image: max,
+        description: `"I am a Munich-based conceptual artist and ethics consultant with focus on technology. Munich is the place where a lot of money and tech is concentrated at the moment. In my opinion, arts can help to reflect the usage and impact of those resources. Therefore, my favorite place is the Kreativquartier where more and more Start-up's settle amid a lively arts scene. I am at the same time critical and enthusiastic about NFT and have given numerous interviews about my NFT art, which which integrates both perspectives. I would like to represent Munich with a balanced and responsible view on this fascinating technology."`,
+        twitter: 'https://twitter.com/UzupisMUC',
+        instagram: 'https://www.instagram.com/uzupis_munich/'
+      },
       ],
     };
 
@@ -72,14 +72,14 @@ class Artists extends React.Component {
 
     return (
       <Container fixed>
-        <Typography variant="h2" component="h2" gutterBottom>
+        <Typography variant="h1" component="h1" gutterBottom>
           Artists
         </Typography>
         <Grid container spacing={6} alignContent="center" justify="flex-start" alignItems="flex-start">
           {
             this.state.artists.map((p) => {
               return (
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid item xs={12} sm={6} md={4}>
                   <Profile person={p} />
                 </Grid>
               )
