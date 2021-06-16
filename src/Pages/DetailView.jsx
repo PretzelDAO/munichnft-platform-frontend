@@ -172,11 +172,9 @@ class DetailView extends React.Component {
               <>
                 <div />
                 {Web3.givenProvider ? (
-                  <Fab variant="contained" color="secondary" style={{ backgroundColor: 'yellow', padding: '16px', margin: '8px', color: 'black', marginLeft: '0px', boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)' }}
+                  <Fab variant="contained" color="secondary" style={{ borderRadius: '8px', fontWeight: 'bold', backgroundColor: 'yellow', padding: '16px', margin: '8px', color: 'black', marginLeft: '0px', boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)' }}
                     onClick={() => buyNft()}>
-                    Buy for&nbsp;
-                    {price}&nbsp;
-                    ETH&nbsp;
+                    Buy for&nbsp;&nbsp;&nbsp;{price}&nbsp;ETH&nbsp;
                     <img src={ethIcon} style={{ height: '24px' }} />
                   </Fab>
                 ) : (
