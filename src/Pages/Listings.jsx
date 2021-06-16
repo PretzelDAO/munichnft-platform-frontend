@@ -32,7 +32,7 @@ class Listings extends React.Component {
     let nftOwner = '';
     return (
       <Container fixed style={{ maxWidth: "1600px" }}>
-        <Box pt={10} pb={4}>
+        <Box pt={5} pb={4}>
           <Typography variant="h5" component="h1">
             First edition NFTs
           </Typography>
