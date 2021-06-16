@@ -160,25 +160,25 @@ class DetailView extends React.Component {
               }
               subheader={'Created by ' + creator.slice(0, 16)}
             />
-            <Typography variant="body2" gutterBottom style={{ marginTop: '20px' }} >
+            <Typography variant="body2" gutterBottom style={{ marginTop: '20px', marginBottom: '32px' }} >
               {description}
             </Typography>
 
             {sold ? (
-              <Typography variant="h5" style={{ marginTop: '32px' }}>
+              <Typography variant="h5">
                 Sold to @{owner}
               </Typography>
             ) : (
               <>
                 <div />
                 {Web3.givenProvider ? (
-                  <Fab variant="contained" color="secondary" style={{ borderRadius: '8px', fontWeight: 'bold', backgroundColor: 'yellow', padding: '16px', margin: '8px', color: 'black', marginLeft: '0px', boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)' }}
+                  <Fab variant="contained" color="secondary" style={{ borderRadius: '8px', fontWeight: 'bold', backgroundColor: '#ffee00', padding: '16px', color: 'black', marginLeft: '0px', boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)' }}
                     onClick={() => buyNft()}>
                     Buy for&nbsp;&nbsp;&nbsp;{price}&nbsp;ETH&nbsp;
                     <img src={ethIcon} style={{ height: '24px' }} />
                   </Fab>
                 ) : (
-                  <Button size="large" variant="outlined" disabled style={{ marginBottom: '12px', marginTop: '8px' }} >
+                  <Button size="large" variant="outlined" disabled>
                     Please install Metamask to buy this Artwork
                   </Button>
                 )}
@@ -186,7 +186,7 @@ class DetailView extends React.Component {
             )}
 
             <div style={{marginTop: '16px', fontSize: '12px'}}>
-              <Link href={`https://opensea.io/assets/0xce4f570801a50ee1833b7480ef16c4fd1b3caa8f/${tokenId}`} target="_blank" rel="noopener">View on OpenSea</Link>
+              <Link href={`https://opensea.io/assets/0xce4f570801a50ee1833b7480ef16c4fd1b3caa8f/${tokenId}`} target="_blank" rel="noopener" style={{ color: "#808080", textDecoration: "underline" }}>View on OpenSea</Link>
             </div>
 
           </Grid>
