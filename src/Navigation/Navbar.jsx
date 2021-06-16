@@ -4,6 +4,7 @@ import { MetaMaskButton } from 'rimble-ui';
 import {
   AppBar,
   Toolbar,
+  Grid,
   IconButton,
   Typography,
   Hidden,
@@ -14,7 +15,7 @@ import {
   Menu as MenuIcon,
 } from '@material-ui/icons';
 
-import miniLogo from '../res/logo.gif';
+import miniLogo from '../res/munichNFT-logo-white.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -61,24 +62,25 @@ class Navbar extends React.Component {
           </Toolbar>
         </Hidden>
         <Hidden smDown>
-          <Tabs value={value}
+        <Grid container style={{ maxWidth: '1280px', margin: 'auto' }}>
+            <Grid sm={4} item style={{ lineHeight: '1' }}>
+            <img src={miniLogo} alt="munichNFT Logo" style={{ maxHeight: '44px', marginLeft: '16px', padding: '8px', cursor: 'pointer' }} onClick={() => history.push('/')} />
+            </Grid>
+            <Grid sm={8} item>
+              <Grid container justify="flex-end">
+              <Tabs value={value}
           onChange={handleChange}
-          aria-label="simple tabs example"
-          variant="fullWidth"
-          TabIndicatorProps={{
-            style: {
-              height:"0px",
-            }
-          }}
-          >
-            <img src={miniLogo} style={{ maxHeight: '45px', padding: '8px', cursor: 'pointer' }} onClick={() => history.push('/')} />
-            <div style={{ marginLeft: 'auto', marginRight: '32px' }}>
-              <Tab label="Home" onClick={() => history.push('/')}/>
+          aria-label="Navigation Tabs"
+          variant="fullWidth">
+              {/*<Tab label="Home" onClick={() => history.push('/')}/>*/}
               <Tab label="About" onClick={() => history.push('/about')}/>
               <Tab label="Artists" onClick={() => history.push('/artists')}/>
               {/* <Tab label="Mint" onClick={() => history.push('/mint')}/> */}
-            </div>
           </Tabs>
+              </Grid>
+            </Grid>
+          </Grid>
+
         </Hidden>
       </AppBar>
     );
