@@ -138,55 +138,55 @@ class DetailView extends React.Component {
     return (
       <Container>
         <Box pt={10}></Box>
-          <Grid container spacing={8}>
-            <Grid item xs={12} md={7}>
-              <ModalImage className={'modalimagestyle'} 
-              hideDownload={true} 
-                small={imageUrlOriginal}
-                large={imageUrlOriginal}
-                alt={name}
-              />
-            </Grid>
-            <Grid item xs={12} md={5}>
-              <Typography component="h1" gutterBottom variant="h2">
-                {name}
-              </Typography>
-              <Typography variant="overline" display="block" gutterBottom>
-        Token #{tokenId}
-      </Typography>
-              <CardHeader 
-                avatar={
-                  <Avatar src={ownerProfilePic} />
-                }
-                subheader={'Created by ' + creator.slice(0, 16)}
-              />
-              <Typography variant="body2" gutterBottom style={{marginTop: '20px'}} >
-                {description}
-              </Typography>
-              {sold ? (
-                <Typography variant="h5" style={{ marginTop: '32px' }}>
-                  Sold to @{owner}
-                </Typography>
-              ) : (
-                <>
-                  <div />
-                  {Web3.givenProvider ? (
-                    <Fab variant="contained" color="secondary" style={{ backgroundColor:'yellow', padding: '16px', margin: '8px', color: 'black', marginLeft: '0px', boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)' }} 
-                    onClick={() => buyNft()}>
-                      Buy for&nbsp;
-                      {price}&nbsp;
-                      ETH&nbsp;
-                      <img src={ethIcon} style={{ height: '24px' }} />
-                    </Fab>
-                  ) : (
-                    <Button size="large" variant="outlined" disabled style={{ marginBottom: '12px', marginTop: '8px' }} >
-                      Please install Metamask to buy this Artwork
-                    </Button>
-                  )}
-                </>
-              )}
-            </Grid>
+        <Grid container spacing={8}>
+          <Grid item xs={12} md={7}>
+            <ModalImage className={'modalimagestyle'}
+              hideDownload={true}
+              small={imageUrlOriginal}
+              large={imageUrlOriginal}
+              alt={name}
+            />
           </Grid>
+          <Grid item xs={12} md={5}>
+            <Typography component="h1" gutterBottom variant="h2">
+              {name}
+            </Typography>
+            <Typography variant="overline" display="block" gutterBottom>
+              Token #{tokenId}
+            </Typography>
+            <CardHeader
+              avatar={
+                <Avatar src={ownerProfilePic} />
+              }
+              subheader={'Created by ' + creator.slice(0, 16)}
+            />
+            <Typography variant="body2" gutterBottom style={{ marginTop: '20px' }} >
+              {description}
+            </Typography>
+            {sold ? (
+              <Typography variant="h5" style={{ marginTop: '32px' }}>
+                Sold to @{owner}
+              </Typography>
+            ) : (
+              <>
+                <div />
+                {Web3.givenProvider ? (
+                  <Fab variant="contained" color="secondary" style={{ backgroundColor: 'yellow', padding: '16px', margin: '8px', color: 'black', marginLeft: '0px', boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)' }}
+                    onClick={() => buyNft()}>
+                    Buy for&nbsp;
+                    {price}&nbsp;
+                    ETH&nbsp;
+                    <img src={ethIcon} style={{ height: '24px' }} />
+                  </Fab>
+                ) : (
+                  <Button size="large" variant="outlined" disabled style={{ marginBottom: '12px', marginTop: '8px' }} >
+                    Please install Metamask to buy this Artwork
+                  </Button>
+                )}
+              </>
+            )}
+          </Grid>
+        </Grid>
         <Dialog
           open={dialogOpen}
           onClose={() => this.setState({ dialogOpen: false })}
