@@ -55,7 +55,7 @@ class Listings extends React.Component {
                       title={nft.name}
                     />
                     <CardContent>
-                      <Typography variant="h6" component="h2">{nft.name}</Typography>
+                      <Typography variant="h6" style={{ minHeight: "64px" }} component="h2">{nft.name}</Typography>
                       <CardHeader
                         avatar={
                           <Avatar src={nft.ownerProfilePic} />
