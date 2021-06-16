@@ -6,7 +6,7 @@ require('typeface-noto-sans');
 const lightTheme = createMuiTheme({
   palette: {
     primary: {
-      light: '#8e64c8',
+      light: '#333333',
       main: '#000000',
       dark: '#2d0d68',
       contrastText: '#ffffff',
@@ -18,6 +18,15 @@ const lightTheme = createMuiTheme({
   },
   typography: {
     fontFamily: '"Roboto Mono", "Roboto", "Helvetica", "Arial", "sans-serif"',
+    h1: {
+      fontWeight: 'bold',
+    },
+    h2: {
+      fontWeight: 'bold',
+    },
+    h5: {
+      fontWeight: 'bold',
+    },
     h6: {
       fontWeight: 'bold',
     },
