@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
   footerStyle: {
     backgroundColor: 'black',
     width: '100%',
-    marginTop: '16px',
+    marginTop: '80px',
     padding: '8px 16px',
     textAlign: 'center'
   },
@@ -34,7 +34,7 @@ class Footer extends React.Component {
           variant="body2" color="secondary">
           © 2021 Chair of Strategy and Organization, Technical University of Munich. All Rights Reserved.
           <br />
-          <Link onClick={ () => {history.push('/imprint'); window.scrollTo(0, 0)}} color="secondary"> Legal Disclosure</Link>
+          <Link onClick={ () => {history.push('/imprint'); window.scrollTo(0, 0)}} color="secondary">Legal Disclosure</Link>
 
 
         </Typography>
