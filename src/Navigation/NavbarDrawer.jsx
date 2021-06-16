@@ -66,6 +66,12 @@ class NavbarDrawer extends React.Component {
             </ListItemIcon>
             <Typography variant="inherit">Artists</Typography>
           </MenuItem>
+          <MenuItem onClick={() => { onMenuSelected(); history.push('/qandA'); }}>
+            <ListItemIcon>
+              <BorderColor fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">Q and A</Typography>
+          </MenuItem>
           <MenuItem onClick={() => { onMenuSelected(); history.push('/imprint'); }}>
             <ListItemIcon>
               <ContactSupport fontSize="small" />

@@ -13,6 +13,7 @@ import Artists from './Pages/Artists';
 import About from './Pages/About';
 import Imprint from './Pages/Imprint';
 import Home from './Pages/Home';
+import QandA from './Pages/QandA';
 
 import Navbar from './Navigation/Navbar';
 import NavbarDrawer from './Navigation/NavbarDrawer';
@@ -173,6 +174,13 @@ class App extends React.Component {
                 path={'/imprint'}
                 render={props => (
                   <Imprint {...props} />
+                )}
+              />
+              <Route
+                exact
+                path={'/qanda'}
+                render={props => (
+                  <QandA {...props} />
                 )}
               />
               <Route
