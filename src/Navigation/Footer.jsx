@@ -34,8 +34,7 @@ class Footer extends React.Component {
           variant="body2" color="secondary">
           © 2021 Chair of Strategy and Organization, Technical University of Munich. All Rights Reserved.
           <br />
-          <Link onClick={ () => {history.push('/imprint'); window.scrollTo(0, 0)}} color="secondary">Legal Disclosure</Link>
-
+          <Link href="https://discord.gg/w5ugpemX2Z" target="_blank" rel="noopener" style={{ color: "#5865F2" }}>Discord</Link> ｜ <Link href="https://twitter.com/NftMunich" target="_blank" rel="noopener" style={{ color: "#1DA1F2" }}>Twitter</Link> ｜ <Link style={{ color: "#808080" }} href="/imprint">Legal Disclosure</Link>
 
         </Typography>
 
