@@ -112,15 +112,14 @@ class About extends React.Component {
     return (
       <Container>
         <Box pt={10} pb={8}>
+          <Typography variant="h2" component="h1" gutterBottom>About</Typography>
           <Typography variant="body1" gutterBottom>
-            munichNFT is the world's first city-NFT platform for creatives and artists who want to learn about, create, mint, auction and buy NFTs. Become part of our MunichNFT community in the Web 3.0 revolution by joining us on <Link href="https://discord.gg/CmuQjxpRvg" style={{ color: "#808080", textDecoration: "underline" }}>Discord</Link> and <Link href="https://twitter.com/NftMunich" style={{ color: "#808080", textDecoration: "underline" }}>Twitter</Link>!
+            munichNFT is the world's first city-NFT platform for creatives and artists who want to learn about, create, mint, auction and buy NFTs. Become part of our MunichNFT community in the Web 3.0 revolution by joining us on <Link href="https://discord.gg/w5ugpemX2Z" target="_blank" rel="noopener" style={{ color: "#808080", textDecoration: "underline" }}>Discord</Link> and <Link href="https://twitter.com/NftMunich" target="_blank" rel="noopener" style={{ color: "#808080", textDecoration: "underline" }}>Twitter</Link>!<br /><br /> ➜ Visit our collection also on <Link href="https://opensea.io/collection/munichnft" target="_blank" rel="noopener" style={{ color: "#808080", textDecoration: "underline" }}>OpenSea</Link> (largest NFT marketplace)
           </Typography>
         </Box>
-        <Box pb={4}>
-          <Typography variant="h2" component="h2" gutterBottom>
-            Core Team
-          </Typography>
-        </Box>
+        <Typography variant="h2" component="h2" gutterBottom>
+          Core Team
+        </Typography>
         <Grid container spacing={6} alignContent="center" justify="flex-start" alignItems="flex-start">
           {
             this.state.core.map((p) => {
@@ -135,7 +134,7 @@ class About extends React.Component {
 
 
         <Typography variant="h2" component="h2" gutterBottom style={{ marginTop: '48px' }}>
-          Hackathon Helper
+          Hackathon Support Team
         </Typography>
         <Grid container spacing={6} alignContent="center" justify="flex-start" alignItems="flex-start">
           {
