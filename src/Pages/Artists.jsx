@@ -72,7 +72,11 @@ class Artists extends React.Component {
 
     return (
       <Container>
-        <Box pt={10}></Box>
+        <Box pt={10} pb={8}>
+          <Typography variant="h2" component="h1" gutterBottom>Artists</Typography>
+          <Typography variant="body1" gutterBottom>
+            The first munichNFT collection was produced and minted in a workshop on 11.-13.06.21. The participating artists represent a broad variaty of background, from conceptual artists to architects, from movie makers to activists. We discussed the opportunities of NFTs for Munich and how we can represent the city through this new medium. At the end, every creative chose an iconic Munich site as the foundation of his/her art work.          </Typography>
+        </Box>
         <Grid container spacing={6} alignContent="center" justify="flex-start" alignItems="flex-start">
           {
             this.state.artists.map((p) => {
