@@ -76,7 +76,7 @@ class Listings extends React.Component {
                       ) : (
                         <Box>
                           <Typography variant="body2" style={{ color: "#7F7F7F" }}>Status</Typography>
-                          <Typography color="secondary">Sold to @{nft.owner}</Typography>
+                          <Typography color="secondary">Sold to @{nft.owner.length > 16 ? `${nft.owner.substring(0, 4)}..${nft.owner.substring(nft.owner.length - 4, nft.owner.length)}`: nft.owner} for {nft.soldFor} ETH</Typography>
                         </Box>
                       )}
                     </CardActions>

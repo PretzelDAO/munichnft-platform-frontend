@@ -77,6 +77,7 @@ class DetailView extends React.Component {
       price: asset.price,
       buyOrder: asset.buyOrder,
       sold: asset.sold,
+      soldFor: asset.soldFor,
     });
 
     if (!web3) {
@@ -106,6 +107,7 @@ class DetailView extends React.Component {
     const {
       name, price, description, tokenId, imageUrlOriginal,
       sold, dialogOpen, balance, owner, creator, ownerProfilePic,
+      soldFor,
     } = this.state;
 
 
@@ -166,7 +168,7 @@ class DetailView extends React.Component {
 
             {sold ? (
               <Typography variant="h5">
-                Sold to @{owner}
+                <Typography color="primary">Sold to @{owner.length > 16 ? `${owner.substring(0, 4)}...${owner.substring(owner.length - 4, owner.length)}`: owner} for {soldFor} ETH</Typography>
               </Typography>
             ) : (
               <>

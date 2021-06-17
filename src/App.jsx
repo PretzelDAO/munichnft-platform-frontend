@@ -76,10 +76,14 @@ class App extends React.Component {
         sold = true;
       }
       let owner;
+      let soldFor;
       if (asset.owner.user) {
         if (asset.owner.user.username) {
           owner = asset.owner.user.username;
         }
+      }
+      if (asset.last_sale) {
+        soldFor = new Bignumber(asset.last_sale.total_price).toNumber() / 1e18;
       }
       if (!owner) {
         owner = asset.owner.address;
@@ -109,6 +113,7 @@ class App extends React.Component {
         price,
         buyOrder: buyOrderObj,
         sold,
+        soldFor,
         raw: asset,
       });
     });
