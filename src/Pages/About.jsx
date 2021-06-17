@@ -20,7 +20,7 @@ import {
 
 import nick from '../res/nick.jpg';
 import isabell from '../res/isabell.jpg';
-import yonne from '../res/yonne.jpg';
+import yonne from '../res/yonne2.jpg';
 import lukas from '../res/lukas.jpg';
 import sergej from '../res/sergej.jpg';
 import christian from '../res/christian.jpg';
