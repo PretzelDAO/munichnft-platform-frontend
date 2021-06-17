@@ -87,12 +87,12 @@ class Listings extends React.Component {
           })}
         </Grid>
         <Box pt={10}>
-        <Typography variant="body1" align="center" gutterBottom style={{ lineHeight: "32px" }}>
-          Our collection on <Link href="https://opensea.io/collection/munichnft" target="_blank" rel="noopener" style={{ color: "#3291E9" }}>OpenSea <img src={openseaIcon} style={{ height: "32px", margin: "auto", verticalAlign: "middle", display: "inline-block" }} /></Link>
-        </Typography>
-        <Typography variant="body1" align="center">
-          Our contract address <Link href="https://etherscan.io/address/0xce4f570801a50ee1833b7480ef16c4fd1b3caa8f" target="_blank" rel="noopener" style={{ color: "#808080" }}>0xce4f570801a50ee1833b7480ef16c4fd1b3caa8f</Link>
-        </Typography>
+          <Typography variant="body1" align="center" gutterBottom style={{ lineHeight: "32px" }}>
+            Our collection on <Link href="https://opensea.io/collection/munichnft" target="_blank" rel="noopener" style={{ color: "#3291E9" }}>OpenSea <img src={openseaIcon} style={{ height: "32px", margin: "auto", verticalAlign: "middle", display: "inline-block" }} /></Link>
+          </Typography>
+          <Typography variant="body1" align="center">
+            Our contract address <Link href="https://etherscan.io/address/0xce4f570801a50ee1833b7480ef16c4fd1b3caa8f" target="_blank" rel="noopener" style={{ color: "#808080", wordBreak: "break-all" }}>0xce4f570801a50ee1833b7480ef16c4fd1b3caa8f</Link>
+          </Typography>
         </Box>
 
       </Container>
