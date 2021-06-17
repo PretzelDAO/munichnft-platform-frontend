@@ -9,8 +9,9 @@ import {
   ContactSupport,
   Home,
   Info,
-  MenuOpen,
 } from '@material-ui/icons';
+
+import GavelIcon from '@material-ui/icons/Gavel';
 
 import Logo from '../res/logo.jpg';
 
@@ -68,13 +69,13 @@ class NavbarDrawer extends React.Component {
           </MenuItem>
           <MenuItem onClick={() => { onMenuSelected(); history.push('/qandA'); }}>
             <ListItemIcon>
-              <BorderColor fontSize="small" />
+              <ContactSupport fontSize="small" />
             </ListItemIcon>
             <Typography variant="inherit">FAQ</Typography>
           </MenuItem>
           <MenuItem onClick={() => { onMenuSelected(); history.push('/imprint'); }}>
             <ListItemIcon>
-              <ContactSupport fontSize="small" />
+              <GavelIcon fontSize="small" />
             </ListItemIcon>
             <Typography variant="inherit">Imprint</Typography>
           </MenuItem>
