@@ -48,9 +48,9 @@ class Artists extends React.Component {
         instagram: 'https://www.instagram.com/nils.froehling/'
       },
       {
-        name: 'Tomal K. Ganguly (tkg/nft)',
+        name: 'Tomal K. Ganguly (tkgNFT)',
         image: tomal,
-        description: `"Munich-based blockchain pro combining business, art and culture."`,
+        description: `"I am a Munich based blockchain pro combining business, art and culture. Non-fungible tokens are a new way of thinking and have the disruptive power changing the current digital world and connecting the real with  the virtual world in a sustainable manner."`,
         twitter: 'https://twitter.com/tomalganguly',
         instagram: 'https://www.instagram.com/tomstr83'
       },
