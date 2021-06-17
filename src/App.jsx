@@ -148,7 +148,7 @@ class App extends React.Component {
         <CssBaseline>
           <Navbar {...this.props} history={history} onMenuSelected={onMenuSelected} />
           <NavbarDrawer {...this.props} history={history} swipeSidebarOpen={this.state.swipeSidebarOpen} onSidebarEventTouch={onSidebarEventTouch} onMenuSelected={onMenuSelected} />
-          <Router style={{ height: '100%' }} history={history}>
+          <Router style={{ minHeight: '100vh' }} history={history}>
             <Switch>
               <Route
                 exact
