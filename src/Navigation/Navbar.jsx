@@ -59,6 +59,25 @@ class Navbar extends React.Component {
             <Typography variant="h6" color="secondary">
               MunichNFT
             </Typography>
+            {isLoggedIn ? (
+              <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+                <div>
+                  <div style={{ height: '32px', width: '32px', borderRadius: '16px', backgroundImage: 'linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(252,253,45,1) 100%)' }} />
+                </div>
+                <div style={{ display: 'flex', padding: '8px', flexDirection: 'column', flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'flex-start' }}>
+                  <Typography variant="caption">
+                    {user.accountBalance} ETH
+                  </Typography>
+                  <Typography variant="caption">
+                    {user.accountAddress.substring(0, 4)}..{user.accountAddress.substring(user.accountAddress.length - 4, user.accountAddress.length)}
+                  </Typography>
+                </div>
+              </div>
+            ) : (
+              <MetaMaskButton onClick={onLoginRequest} style={{ marginLeft: 'auto' }}>
+                Login
+              </MetaMaskButton>
+            )}
           </Toolbar>
         </Hidden>
         <Hidden smDown>
