@@ -8,17 +8,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-class TxDialog extends React.Component {
+class IpfsDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
 
     };
 
-    this.RenderTxDialog = this.RenderTxDialog.bind(this);
+    this.RenderIpfsDialog = this.RenderIpfsDialog.bind(this);
   }
 
-  RenderTxDialog() {
+  RenderIpfsDialog() {
     const classes = useStyles();
 
     return (
@@ -32,14 +32,14 @@ class TxDialog extends React.Component {
           pb={3}
         >
           <Loader color="black" aria-label="Processing" size="24px" />
-          <Heading textAlign="center" as="h1" fontSize={[2, 3]} px={[3, 0]}>
-            Your transaction has started
+          <Heading textAlign="left" as="h1" fontSize={[2, 3]} px={[3, 0]}>
+            File upload has started...
           </Heading>
         </Flex>
         <Box p={[3, 4]}>
           <Flex justifyContent={"space-between"} flexDirection={"column"}>
             <Text textAlign="center">
-              The Ethereum network is processing your transaction, which can take a little while.
+              The IPFS network is processing your upload, which can take a little while.
             </Text>
           </Flex>
         </Box>
@@ -49,9 +49,9 @@ class TxDialog extends React.Component {
 
   render() {
     return (
-      <this.RenderTxDialog />
+      <this.RenderIpfsDialog />
     );
   }
 }
 
-export default TxDialog;
+export default IpfsDialog;

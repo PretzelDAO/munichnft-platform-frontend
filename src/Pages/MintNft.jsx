@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button, Container, Grid, TextareaAutosize, TextField,
-  Typography, Stepper, Step, StepLabel,
+  Typography, Stepper, Step, StepLabel, Dialog,
 } from '@material-ui/core';
 
 import { create } from 'ipfs-http-client';
@@ -10,6 +10,9 @@ import { CID } from 'ipfs-http-client'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 const client = create(new URL('https://ipfs.infura.io:5001'));
+
+import IpfsDialog from './IpfsDialog';
+import TxDialog from './TxDialog';
 
 import * as Web3 from 'web3'
 
@@ -39,10 +42,12 @@ const IpfsUploader = (props) => {
   const handleSubmit = (files, allFiles) => {
     files.forEach(async (file) => {
       console.log(file);
+      props.openDialog();
       const res = await client.add(file.file);
       props.onUploaded(res.path);
       console.log(res);
       file.remove();
+      props.closeDialog();
     });
   }
 
@@ -87,6 +92,9 @@ class MintNft extends React.Component {
       resultingTokenId: '',
 
       listingPrice: 0,
+
+      ipfsDialogOpen: false,
+      txDialogOpen: false,
     };
 
     this.RenderMintNft = this.RenderMintNft.bind(this);
@@ -105,6 +113,7 @@ class MintNft extends React.Component {
 
 
     const listNft = async () => {
+      this.setState({ txDialogOpen: true });
       const expirationTime = Math.round(Date.now() / 1000 + 60 * 60 * 24 * 365);
       const contractAddres = CONFIG.TOKEN_ADDRESS;
       const accounts = await web3.eth.requestAccounts();
@@ -120,10 +129,11 @@ class MintNft extends React.Component {
         expirationTime,
       });
       console.log(listing);
-      this.setState({ listingResult: listing.hash });
+      this.setState({ listingResult: listing.hash, txDialogOpen: false });
     };
 
     const mintNft = async () => {
+      this.setState({ txDialogOpen: true });
       const contractAddres = CONFIG.TOKEN_ADDRESS;
       const accounts = await web3.eth.requestAccounts();
       const account = accounts[0];
@@ -136,10 +146,12 @@ class MintNft extends React.Component {
       this.setState({
         nftMintResult: contractCallRes.blockHash,
         resultingTokenId: contractCallRes.events.Transfer.returnValues.tokenId,
+        txDialogOpen: false,
       });
     }
 
     const addMetaData = async () => {
+      this.setState({ ipfsDialogOpen: true });
       const accounts = await web3.eth.requestAccounts();
       const account = accounts[0];
       console.log(account);
@@ -154,7 +166,7 @@ class MintNft extends React.Component {
 
       const cid = await client.add(doc);
       console.log("IPFS cid:", cid);
-      this.setState({ metaDataUploadResult: cid.path });
+      this.setState({ metaDataUploadResult: cid.path, ipfsDialogOpen: false });
     }
 
     const getSteps = () => {
@@ -192,10 +204,14 @@ class MintNft extends React.Component {
             <Typography variant="h5">
               Upload your Art
             </Typography>
-            <IpfsUploader onUploaded={onUploaded} />
+            <IpfsUploader 
+              onUploaded={onUploaded}
+              closeDialog={() => this.setState({ ipfsDialogOpen: false })}
+              openDialog={() => this.setState({ ipfsDialogOpen: true })}
+            />
           </Container>
         ) : (
-          <Container>
+          <Container style={{ textAlign: 'center' }}>
             <Typography variant="body2">
               Uploaded: {fileUploadResult}
             </Typography>
@@ -227,14 +243,14 @@ class MintNft extends React.Component {
             </Grid>
           </Grid>
         ) : (
-          <>
+          <Container style={{ textAlign: 'center' }}>
             <Typography variant="body2">
               Uploaded: {metaDataUploadResult}
             </Typography>
             <Button color="primary" size="large" onClick={handleNext} variant="outlined" className={classes.nextButtonStyle} size="large">
               Next
             </Button>
-          </>
+          </Container>
         )}
       </Container>
     );
@@ -251,7 +267,7 @@ class MintNft extends React.Component {
             </Button>
           </Container>
         ) : (
-          <Container>
+          <Container style={{ textAlign: 'center' }}>
             <Typography variant="body2">
               Minted: {nftMintResult}
             </Typography>
@@ -276,7 +292,7 @@ class MintNft extends React.Component {
             </Button>
           </Container>
         ) : (
-          <Container>
+          <Container style={{ textAlign: 'center' }}>
             <Typography variant="body2">
               Listed: {listingResult}
             </Typography>
@@ -322,9 +338,27 @@ class MintNft extends React.Component {
       </div>
     );
 
+    const { txDialogOpen, ipfsDialogOpen } = this.state;
+
     return (
       <>
         {stepper}
+        <Dialog
+          open={txDialogOpen}
+          onClose={() => this.setState({ txDialogOpen: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <TxDialog />
+        </Dialog>
+        <Dialog
+          open={ipfsDialogOpen}
+          onClose={() => this.setState({ ipfsDialogOpen: false })}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <IpfsDialog />
+        </Dialog>
       </>
     );
   }
