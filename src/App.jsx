@@ -22,6 +22,18 @@ import Listings from './Pages/Listings';
 import DetailView from './Pages/DetailView';
 import MintNft from './Pages/MintNft';
 
+import * as Web3 from 'web3'
+
+import { OpenSeaPort } from 'opensea-js';
+let web3;
+let seaport;
+if (Web3.givenProvider) {
+  web3 = new Web3(Web3.givenProvider || 'ws://some.local-or-remote.node:8546');
+  seaport = new OpenSeaPort(Web3.givenProvider, {
+    networkName: CONFIG.NETWORK,
+  });
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {},
 }));
@@ -31,14 +43,39 @@ class App extends React.Component {
     super(props);
     this.state = {
       nfts: [],
+      isLoggedIn: false,
+      user: {
+        accountAddress: '',
+        accountBalance: 0,
+      },
     };
 
     this.RenderApp = this.RenderApp.bind(this);
     this.refreshData = this.refreshData.bind(this);
+    this.loadAccount = this.loadAccount.bind(this);
   }
 
   componentDidMount() {
     this.refreshData();
+    this.loadAccount();
+  }
+
+  async loadAccount() {
+    if (!web3) {
+      return;
+    }
+    const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
+    if (!account) {
+      return;
+    }
+    const user = {};
+    web3.eth.getBalance(account).then((balance) => {
+      console.log(web3.utils.fromWei(balance, 'ether'));
+      user.accountBalance = web3.utils.fromWei(balance, 'ether');
+      user.accountAddress = account;
+      this.setState({ user, isLoggedIn: true });
+    });
   }
 
   async refreshData() {
@@ -56,7 +93,7 @@ class App extends React.Component {
       return;
     }
     console.log(assetsObjects);
-    assetsObjects.assets.reverse().forEach((asset) => {
+    assetsObjects.assets.reverse().forEach(async (asset) => {
       if (!asset.image_original_url) {
         return;
       }
@@ -141,12 +178,31 @@ class App extends React.Component {
       this.setState({ swipeSidebarOpen: open });
     };
 
-    const { nfts } = this.state;
+    const onLoginRequest = async () => {
+      if (!web3) {
+        console.log('metamask not installed');
+        return;
+      }
+      const accounts = await web3.eth.requestAccounts();
+      const account = accounts[0];
+      if (!account) {
+        return;
+      }
+      const user = {};
+      web3.eth.getBalance(account).then((balance) => {
+        console.log(web3.utils.fromWei(balance, 'ether'));
+        user.accountBalance = web3.utils.fromWei(balance, 'ether');
+        user.accountAddress = account;
+        this.setState({ user, isLoggedIn: true });
+      });
+    };
+
+    const { nfts, isLoggedIn, user } = this.state;
 
     return (
-      <MuiThemeProvider theme={lightTheme}> 
+      <MuiThemeProvider theme={lightTheme}>
         <CssBaseline>
-          <Navbar {...this.props} history={history} onMenuSelected={onMenuSelected} />
+          <Navbar {...this.props} history={history} onMenuSelected={onMenuSelected} onLoginRequest={onLoginRequest} user={user} isLoggedIn={isLoggedIn} />
           <NavbarDrawer {...this.props} history={history} swipeSidebarOpen={this.state.swipeSidebarOpen} onSidebarEventTouch={onSidebarEventTouch} onMenuSelected={onMenuSelected} />
           <Router style={{ minHeight: '100vh' }} history={history}>
             <Switch>
