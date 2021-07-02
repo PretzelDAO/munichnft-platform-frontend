@@ -138,6 +138,40 @@ class App extends React.Component {
       if (!creator) {
         creator = asset.creator.address;
       }
+      let ownerProfilePic = asset.owner.profile_img_url;
+      switch (asset.token_id) {
+        case '1':
+          creator = 'munichNFT_Team';
+          break;
+        case '2':
+          creator = 'Max_Haarich';
+          ownerProfilePic = 'https://lh3.googleusercontent.com/ShSpCRLtkHL8Gqi6cfZk5xNJ3-t1JrmIzJUQsDvTo00ZsK-OhFGHLNgmLyto_4pum4PiDeujKoNup0PdbEwy38QzoEtWgTBVmi25n0k=s44';
+          break;
+        case '3':
+          creator = 'tkgNFT';
+          ownerProfilePic = 'https://lh3.googleusercontent.com/hIvSfX6gTfuWRnO0uqfd3rnnzxo_xIYNjJ8lV9cgFHMEIz47_kg-STRoS9BRD9qrUlEkAfquau07VyxpWaYph2mbA6UbpnoUl82E7A=s44';
+          break;
+        case '4':
+          creator = 'Nils_Froehling';
+          ownerProfilePic = 'https://lh3.googleusercontent.com/lI7GDFBvS_Pa9lKNOFKwPx7lWZZBMv97bcWfCUMjWYZ6yAssiRx6qKen32TTykkMAaWczwKhkDn8_m8P9kVasHrohuWrDCEkCPxwrg=s44';
+          break;
+        case '5':
+          creator = 'dominikbais';
+          ownerProfilePic = 'https://lh3.googleusercontent.com/lx_r7bnWKDJCDgn-uxLPk_r27Irkcay7w8lJXNbX8mb4cuyXnXP63LIOJAkAp7ykocZqjru8X5tA5c589tsoHIW-Fcl7-ESlS_gPLgc=s44';
+          break;
+        case '6':
+          creator = 'Delix';
+          ownerProfilePic = 'https://lh3.googleusercontent.com/IGXrpq7wTSHJiJvN-biQ1H7Ab7ulwvSDGgG2hZ16t2s_Ylm7l-cJvJ-JBdLvsi1OgoyBUBz5XX9pOgntVaq2-EIB-0shkKJ0hG3S=s44';
+          break;
+        case '7':
+          creator = 'LuXxn';
+          ownerProfilePic = 'https://lh3.googleusercontent.com/oYeAa-cpZHpYMzNQdVckIAHuaGqfnHnMiPxGgFVaNY5L3LfOa8-kWtwPx4e-bPJ4fV63CyCincTBl_FcpB8jVr-Nv8hMpfHICvM3Hw=s44';
+          break;
+        case '9':
+          creator = 'FelixST';
+          ownerProfilePic = 'https://lh3.googleusercontent.com/Q68EM-mlTQlJovxATlq8K4WeoGEgy4jB4cOeM8kK6XPKGANQpeGyMYQWssDfvUGgKM41qw1PFWVkBRw6uvjlJ8J7bvVVv9eVaHS-0Wo=s44';
+          break;
+      }
       const buyOrderObj = asset.sell_orders && asset.sell_orders[0];
       nfts.push({
         name: asset.name,
@@ -146,7 +180,7 @@ class App extends React.Component {
         description: asset.description,
         owner,
         creator,
-        ownerProfilePic: asset.owner.profile_img_url,
+        ownerProfilePic,
         price,
         buyOrder: buyOrderObj,
         sold,
