@@ -83,7 +83,7 @@ class App extends React.Component {
     const tokenAddress = CONFIG.TOKEN_ADDRESS;
     let assetsObjects;
     try {
-      assetsObjects = await axios.get(`https://api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=100&asset_contract_addresses=${tokenAddress}`);
+      assetsObjects = await axios.get(`https://api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=50&asset_contract_addresses=${tokenAddress}`);
       assetsObjects = assetsObjects.data;
     } catch (e) {
       console.log('retrying', e);
