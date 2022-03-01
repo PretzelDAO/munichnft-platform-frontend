@@ -69,6 +69,7 @@ class DetailView extends React.Component {
     this.setState({
       name: asset.name,
       imageUrlOriginal: asset.imageUrlOriginal,
+      imageUrl: asset.imageUrl,
       tokenId: tokenIdQuery,
       description: asset.description,
       ownerProfilePic: asset.ownerProfilePic,
@@ -107,7 +108,7 @@ class DetailView extends React.Component {
     const {
       name, price, description, tokenId, imageUrlOriginal,
       sold, dialogOpen, balance, owner, creator, ownerProfilePic,
-      soldFor,
+      soldFor, imageUrl,
     } = this.state;
 
 
@@ -144,8 +145,8 @@ class DetailView extends React.Component {
           <Grid item xs={12} md={7}>
             <ModalImage className={'modalimagestyle'}
               hideDownload={true}
-              small={imageUrlOriginal}
-              large={imageUrlOriginal}
+              small={imageUrl}
+              large={imageUrl}
               alt={name}
             />
           </Grid>

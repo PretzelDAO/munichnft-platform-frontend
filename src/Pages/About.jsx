@@ -62,7 +62,7 @@ class About extends React.Component {
       {
         name: 'Christian Ziegler',
         image: christian,
-        description: 'CTO Blockcurators GmbH, Graduate CS Student @TUM',
+        description: 'CTO Blockcurators GmbH, Ph.D. Student @TUM',
         title: 'Tech Lead',
         twitter: 'https://twitter.com/Totenfluch',
         linkedin: 'https://www.linkedin.com/in/christian-ziegler-26a45a132/'

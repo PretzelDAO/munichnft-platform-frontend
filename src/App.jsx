@@ -109,11 +109,11 @@ class App extends React.Component {
           price = new Bignumber(asset.sell_orders[0].base_price).toNumber() / 1e18;
         } else {
           price = 0;
-          sold = true;
+          sold = false;
         }
       } else {
         price = 0;
-        sold = true;
+        sold = false;
       }
       let owner;
       let soldFor;
@@ -175,10 +175,11 @@ class App extends React.Component {
           ownerProfilePic = 'https://lh3.googleusercontent.com/Q68EM-mlTQlJovxATlq8K4WeoGEgy4jB4cOeM8kK6XPKGANQpeGyMYQWssDfvUGgKM41qw1PFWVkBRw6uvjlJ8J7bvVVv9eVaHS-0Wo=s44';
           break;
       }
-      const buyOrderObj = asset.sell_orders && asset.sell_orders[0];
+      const buyOrderObj = asset.last_sale;
       nfts.push({
         name: asset.name,
         imageUrlOriginal: asset.image_original_url,
+        imageUrl: asset.image_url,
         tokenId: asset.token_id,
         description: asset.description,
         owner,

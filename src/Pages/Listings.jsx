@@ -54,7 +54,7 @@ class Listings extends React.Component {
                     <CardMedia
                       component="img"
                       className={classes.media}
-                      image={nft.imageUrlOriginal}
+                      image={nft.imageUrl}
                       title={nft.name}
                     />
                     <CardContent>
@@ -68,15 +68,24 @@ class Listings extends React.Component {
                     </CardContent>
 
                     <CardActions style={{ backgroundColor: "black", padding: 24 }}>
-                      {nft.price ? (
-                        <Box>
-                          <Typography variant="body2" style={{ color: "#7F7F7F" }}>Price</Typography>
-                          <Typography color="secondary">{nft.price} ETH</Typography>
-                        </Box>
+                      {!nft.buyOrder ? (
+                        <>
+                          {nft.price !== 0 ? (
+                            <Box>
+                              <Typography variant="body2" style={{ color: "#7F7F7F" }}>Price</Typography>
+                              <Typography color="secondary">{nft.price} ETH</Typography>
+                            </Box>
+                          ) : (
+                            <Box>
+                              <Typography variant="body2" style={{ color: "#7F7F7F" }}>Owned by</Typography>
+                              <Typography color="secondary">{nft.owner.length > 16 ? `${nft.owner.substring(0, 4)}..${nft.owner.substring(nft.owner.length - 4, nft.owner.length)}` : nft.owner}</Typography>
+                            </Box>
+                          )}
+                        </>
                       ) : (
                         <Box>
                           <Typography variant="body2" style={{ color: "#7F7F7F" }}>Status</Typography>
-                          <Typography color="secondary">Sold to @{nft.owner.length > 16 ? `${nft.owner.substring(0, 4)}..${nft.owner.substring(nft.owner.length - 4, nft.owner.length)}`: nft.owner} for {nft.soldFor} ETH</Typography>
+                          <Typography color="secondary">Sold to @{nft.owner.length > 16 ? `${nft.owner.substring(0, 4)}..${nft.owner.substring(nft.owner.length - 4, nft.owner.length)}` : nft.owner} for {parseFloat(nft.buyOrder.payment_token.eth_price)} ETH</Typography>
                         </Box>
                       )}
                     </CardActions>
