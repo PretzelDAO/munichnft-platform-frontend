@@ -24,6 +24,8 @@ import MintNft from './Pages/MintNft';
 
 import * as Web3 from 'web3'
 
+import openseaData from './res/openseadata';
+
 import { OpenSeaPort } from 'opensea-js';
 let web3;
 let seaport;
@@ -83,8 +85,9 @@ class App extends React.Component {
     const tokenAddress = CONFIG.TOKEN_ADDRESS;
     let assetsObjects;
     try {
-      assetsObjects = await axios.get(`https://api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=50&asset_contract_address=${tokenAddress}`);
-      assetsObjects = assetsObjects.data;
+      // assetsObjects = await axios.get(`https://api.opensea.io/api/v1/assets/?asset_contract_address=${tokenAddress}`);
+      // assetsObjects = assetsObjects.data;
+      assetsObjects = openseaData;
     } catch (e) {
       console.log('retrying', e);
       setTimeout(() => {
